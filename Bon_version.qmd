@@ -1,0 +1,6 @@
+---
+title: "ST 558 HW 4 - Ben's version"
+format: html
+---
+
+## Ben's work goes here
