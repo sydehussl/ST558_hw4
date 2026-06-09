@@ -4,3 +4,61 @@ format: html
 ---
 
 ## Jon's work goes here
+
+## Task 1
+```{r}
+library(httr)
+library(tidyverse)
+API_data <- GET("https://newsapi.org/v2/top-headlines?q=Apple&country=us&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
+str(API_data)
+library(jsonlite)
+parsed <- fromJSON(rawToChar(API_data$content))
+
+Apple_data <- tibble(
+    source_name = parsed$articles$source$name,
+    author      = parsed$articles$author,
+    title       = parsed$articles$title,
+    url         = parsed$articles$url,
+    publishedAt = parsed$articles$publishedAt,
+    content     = parsed$articles$content
+  )
+
+Apple_data
+
+
+API_data <- GET("https://newsapi.org/v2/everything?q=tesla&from=2026-05-09&sortBy=publishedAt&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
+str(API_data)
+library(jsonlite)
+parsed <- fromJSON(rawToChar(API_data$content))
+
+Tesla_data <- tibble(
+    source_name = parsed$articles$source$name,
+    author      = parsed$articles$author,
+    title       = parsed$articles$title,
+    url         = parsed$articles$url,
+    publishedAt = parsed$articles$publishedAt,
+    content     = parsed$articles$content
+  )
+
+Tesla_data
+
+
+API_data <- GET("https://newsapi.org/v2/everything?q=nasa&from=2026-05-09&sortBy=publishedAt&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
+str(API_data)
+library(jsonlite)
+parsed <- fromJSON(rawToChar(API_data$content))
+
+NASA_data <- tibble(
+    source_name = parsed$articles$source$name,
+    author      = parsed$articles$author,
+    title       = parsed$articles$title,
+    url         = parsed$articles$url,
+    publishedAt = parsed$articles$publishedAt,
+    content     = parsed$articles$content
+  )
+
+NASA_data
+
+  
+```
+
