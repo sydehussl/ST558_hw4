@@ -129,7 +129,7 @@ roller_data |>
   drop_na() |>
   cor()
 
-#numeric graphs
+#numeric graphs with top speed
 g3 <-ggplot(roller_data, aes(x = TopSpeed)) 
 g3 + geom_histogram() +
   labs(title = "Top Speed of Roller Coasters", x = "Top Speed (mph)")
@@ -140,7 +140,7 @@ g3 + geom_density(alpha = 0.5, aes(fill = AgeF))+
 g3 + geom_boxplot(aes(x = AgeF, y = TopSpeed, fill = AgeF)) +
   labs(title = "Top Speed of Roller Coasters", x = "Age", y = "Age of Roller Coasters")
 
-
+#numeric graphs with max height
 g4 <-ggplot(roller_data, aes(x = MaxHeight)) 
 g4 + geom_histogram() +
   labs(title = "Max Height of Roller Coasters", x = "Max Height (ft)")
