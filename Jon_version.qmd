@@ -67,17 +67,24 @@ NASA_data
 ```{r}
 setwd("C:/Users/davenportjm/Documents/repos")
 roller_data <- read_csv("635USrollercoasters.csv") 
-roller_data <-as_tibble(roller_data)
+roller_data <- as_tibble(roller_data)
 str(roller_data)
 roller_data <- roller_data |>
-  mutate(AgeF = as.factor(AgeGroup), ScaleF = as.factor(Scale), TypeF = as.factor(Type), DesignF = as.factor(Design), InverssionF = as.factor('Inverstions?'))
+  mutate(
+    AgeF= factor(AgeGroup, levels = c("1:Older", "2:Recent", "3:Newest"),
+                  labels = c("Older", "Recent", "Newest")),
+    ScaleF     = as.factor(Scale),
+    TypeF      = as.factor(Type),
+    DesignF    = as.factor(Design),
+    InversionF = as.factor(`Inversions?`)
+  )
 
 # one-way using table for roller coaster data
 table(roller_data$AgeF)
 
 #2 way using filter and table 
 roller_data |>
-  filter(AgeF == "3:Newest") |>
+  filter(AgeF == "Newest") |>
   select(ScaleF, TypeF)|>
   table()
 
@@ -123,7 +130,7 @@ roller_data |>
   drop_na(TopSpeed, MaxHeight)|>
             summarize(corr = cor(TopSpeed, MaxHeight))
    
-#correlation for all numericc         
+#correlation for all numeric      
 roller_data |>
   select(`Year Opened`, TopSpeed, MaxHeight, Drop, Length, Duration, `# of Inversions`) |>
   drop_na() |>
@@ -138,7 +145,7 @@ g3 + geom_density(alpha = 0.5, aes(fill = AgeF))+
   labs(title = "Top Speed of Roller Coasters", x = "Top Speed (mph)", y = "Count")
 
 g3 + geom_boxplot(aes(x = AgeF, y = TopSpeed, fill = AgeF)) +
-  labs(title = "Top Speed of Roller Coasters", x = "Age", y = "Age of Roller Coasters")
+  labs(title = "Top Speed of Roller Coasters", x = "Age", y = "Top Speed (mph) of Roller Coasters")
 
 #numeric graphs with max height
 g4 <-ggplot(roller_data, aes(x = MaxHeight)) 
@@ -150,5 +157,20 @@ g4 + geom_density(alpha = 0.5, aes(fill = AgeF))+
 
 g4 + geom_boxplot(aes(x = AgeF, y = MaxHeight, fill = AgeF)) +
   labs(title = "Max Height of Roller Coasters", x = "Age", y = "Max Height of Roller Coasters")
+
+g5 <-ggplot(roller_data |> drop_na(TopSpeed, MaxHeight), aes(x = TopSpeed, y = MaxHeight, color = MaxHeight)) 
+
+g5 + geom_point() +
+  labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)")
+
+#faceting with 1 categorical variable
+g5 + geom_point() +
+  labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)") +
+  facet_wrap(~AgeF)
+
+#faceting with 2 categorical variables
+g5 + geom_point() +
+  labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)") +
+  facet_wrap(~AgeF + ~ScaleF)
 ```
 

@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ url        : chr "https://newsapi.org/v2/top-headlines?q=Apple&amp;country=us&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 200
  $ headers    :List of 12
-  ..$ date            : chr "Wed, 10 Jun 2026 16:03:20 GMT"
+  ..$ date            : chr "Wed, 10 Jun 2026 22:16:06 GMT"
   ..$ content-type    : chr "application/json; charset=utf-8"
   ..$ cache-control   : chr "no-cache"
   ..$ pragma          : chr "no-cache"
@@ -201,17 +201,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ..$ x-cached-result : chr "false"
   ..$ cf-cache-status : chr "DYNAMIC"
   ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2F"| __truncated__
+  ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sI8"| __truncated__
   ..$ content-encoding: chr "gzip"
   ..$ server          : chr "cloudflare"
-  ..$ cf-ray          : chr "a0999b07bf7a0664-IAD"
+  ..$ cf-ray          : chr "a09bbd12ede2f2e9-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 200
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date            : chr "Wed, 10 Jun 2026 16:03:20 GMT"
+  .. .. ..$ date            : chr "Wed, 10 Jun 2026 22:16:06 GMT"
   .. .. ..$ content-type    : chr "application/json; charset=utf-8"
   .. .. ..$ cache-control   : chr "no-cache"
   .. .. ..$ pragma          : chr "no-cache"
@@ -219,10 +219,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .. .. ..$ x-cached-result : chr "false"
   .. .. ..$ cf-cache-status : chr "DYNAMIC"
   .. .. ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2F"| __truncated__
+  .. .. ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sI8"| __truncated__
   .. .. ..$ content-encoding: chr "gzip"
   .. .. ..$ server          : chr "cloudflare"
-  .. .. ..$ cf-ray          : chr "a0999b07bf7a0664-IAD"
+  .. .. ..$ cf-ray          : chr "a09bbd12ede2f2e9-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -232,9 +232,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ..$ expiration: 'POSIXct' num(0) 
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
- $ content    : raw [1:1343] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 16:03:20"
- $ times      : Named num [1:6] 0 0.058 0.0739 0.1035 0.1761 ...
+ $ content    : raw [1:1685] 7b 22 73 74 ...
+ $ date       : POSIXct[1:1], format: "2026-06-10 22:16:06"
+ $ times      : Named num [1:6] 0 0.0419 0.062 0.1056 0.1939 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -278,10 +278,10 @@ The following object is masked from 'package:purrr':
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>Apple_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 6
-  source_name     author                         title url   publishedAt content
-  &lt;chr&gt;           &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;  
-1 Mashable        Mashable Team, Timothy Beck W… Appl… http… 2026-06-09…  &lt;NA&gt;  
-2 Android Central Nicholas Sutrich               4 of… http… 2026-06-08… "If yo…</code></pre>
+  source_name author                     title         url   publishedAt content
+  &lt;chr&gt;       &lt;chr&gt;                      &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;  
+1 TechCrunch  Morgan Little, Aisha Malik WWDC 2026: E… http… 2026-06-09… "Apple…
+2 The Verge   Robert Hart                Apple wants … http… 2026-06-09… "&lt;ul&gt;&lt;…</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=tesla&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,7 +290,7 @@ The following object is masked from 'package:purrr':
  $ url        : chr "https://newsapi.org/v2/everything?q=tesla&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 426
  $ headers    :List of 12
-  ..$ date           : chr "Wed, 10 Jun 2026 16:03:21 GMT"
+  ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
   ..$ content-type   : chr "application/json; charset=utf-8"
   ..$ content-length : chr "255"
   ..$ cache-control  : chr "no-cache"
@@ -299,16 +299,16 @@ The following object is masked from 'package:purrr':
   ..$ x-cached-result: chr "false"
   ..$ cf-cache-status: chr "DYNAMIC"
   ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wWB"| __truncated__
+  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5kd"| __truncated__
   ..$ server         : chr "cloudflare"
-  ..$ cf-ray         : chr "a0999b09686a0664-IAD"
+  ..$ cf-ray         : chr "a09bbd14ec7ef2e9-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 426
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date           : chr "Wed, 10 Jun 2026 16:03:21 GMT"
+  .. .. ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
   .. .. ..$ content-type   : chr "application/json; charset=utf-8"
   .. .. ..$ content-length : chr "255"
   .. .. ..$ cache-control  : chr "no-cache"
@@ -317,9 +317,9 @@ The following object is masked from 'package:purrr':
   .. .. ..$ x-cached-result: chr "false"
   .. .. ..$ cf-cache-status: chr "DYNAMIC"
   .. .. ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wWB"| __truncated__
+  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5kd"| __truncated__
   .. .. ..$ server         : chr "cloudflare"
-  .. .. ..$ cf-ray         : chr "a0999b09686a0664-IAD"
+  .. .. ..$ cf-ray         : chr "a09bbd14ec7ef2e9-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -330,8 +330,8 @@ The following object is masked from 'package:purrr':
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:255] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 16:03:21"
- $ times      : Named num [1:6] 0 0 0 0.00024 0.03971 ...
+ $ date       : POSIXct[1:1], format: "2026-06-10 22:16:07"
+ $ times      : Named num [1:6] 0 0 0 0.000408 0.06409 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -372,7 +372,7 @@ The following object is masked from 'package:purrr':
  $ url        : chr "https://newsapi.org/v2/everything?q=nasa&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 426
  $ headers    :List of 12
-  ..$ date           : chr "Wed, 10 Jun 2026 16:03:21 GMT"
+  ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
   ..$ content-type   : chr "application/json; charset=utf-8"
   ..$ content-length : chr "255"
   ..$ cache-control  : chr "no-cache"
@@ -381,16 +381,16 @@ The following object is masked from 'package:purrr':
   ..$ x-cached-result: chr "false"
   ..$ cf-cache-status: chr "DYNAMIC"
   ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2F"| __truncated__
+  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xm6"| __truncated__
   ..$ server         : chr "cloudflare"
-  ..$ cf-ray         : chr "a0999b09f8cb0664-IAD"
+  ..$ cf-ray         : chr "a09bbd15df61f2e9-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 426
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date           : chr "Wed, 10 Jun 2026 16:03:21 GMT"
+  .. .. ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
   .. .. ..$ content-type   : chr "application/json; charset=utf-8"
   .. .. ..$ content-length : chr "255"
   .. .. ..$ cache-control  : chr "no-cache"
@@ -399,9 +399,9 @@ The following object is masked from 'package:purrr':
   .. .. ..$ x-cached-result: chr "false"
   .. .. ..$ cf-cache-status: chr "DYNAMIC"
   .. .. ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2F"| __truncated__
+  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xm6"| __truncated__
   .. .. ..$ server         : chr "cloudflare"
-  .. .. ..$ cf-ray         : chr "a0999b09f8cb0664-IAD"
+  .. .. ..$ cf-ray         : chr "a09bbd15df61f2e9-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -412,8 +412,8 @@ The following object is masked from 'package:purrr':
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:255] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 16:03:21"
- $ times      : Named num [1:6] 0 0 0 0.00021 0.04645 ...
+ $ date       : POSIXct[1:1], format: "2026-06-10 22:16:07"
+ $ times      : Named num [1:6] 0 0 0 0.000365 0.056724 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -446,6 +446,353 @@ The following object is masked from 'package:purrr':
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>NASA_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 0</code></pre>
+</div>
+</div>
+</section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/davenportjm/Documents/repos"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"635USrollercoasters.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 635 Columns: 21
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (12): Coaster, Park, City, State, Census Region, AgeGroup, Scale, Type, ...
+dbl  (9): Year Opened, TopSpeed, MaxHeight, Drop, Length, Duration, # of Inv...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span><span class="fu">as_tibble</span>(roller_data)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(roller_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [635 × 21] (S3: tbl_df/tbl/data.frame)
+ $ Coaster        : chr [1:635] "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
+ $ Park           : chr [1:635] "Oaks Amusement Park" "Kings Island" "Carowinds" "Silverwood Theme Park" ...
+ $ City           : chr [1:635] "Portland" "Mason" "Charlotte" "Athol" ...
+ $ State          : chr [1:635] "Oregon" "Ohio" "North Carolina" "Idaho" ...
+ $ Census Region  : chr [1:635] "West" "Midwest" "South" "West" ...
+ $ Year Opened    : num [1:635] 2018 1991 1999 2008 2010 ...
+ $ AgeGroup       : chr [1:635] "3:Newest" "2:Recent" "2:Recent" "3:Newest" ...
+ $ TopSpeed       : num [1:635] 45 35 62 65.6 22 67 35 66 48 50 ...
+ $ MaxHeight      : num [1:635] 72 63 113 192 25 ...
+ $ Scale          : chr [1:635] "Extreme" "Thrill" "Extreme" "Extreme" ...
+ $ Type           : chr [1:635] "Steel" "Steel" "Steel" "Steel" ...
+ $ Design         : chr [1:635] "Sit Down" "Sit Down" "Inverted" "Inverted" ...
+ $ Drop           : num [1:635] 70 47 110 177 22.5 170 20 147 80 144 ...
+ $ Length         : num [1:635] 1050 2963 2956 1204 628 ...
+ $ Duration       : num [1:635] 66 140 167 92 47 190 100 143 110 110 ...
+ $ Inversions?    : chr [1:635] "Yes" "No" "Yes" "Yes" ...
+ $ # of Inversions: num [1:635] 3 0 6 3 0 6 0 0 0 4 ...
+ $ Make           : chr [1:635] "Gerstlauer Amusement Rides GmbH" "Arrow Dynamics" "Bolliger &amp; Mabillard" "Vekoma" ...
+ $ Latitude       : num [1:635] 45.5 39.4 35.3 47.9 28 ...
+ $ Longitude      : num [1:635] -122.7 -84.3 -80.8 -116.7 -82.6 ...
+ $ Boundary       : chr [1:635] "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":95988.013,\"NAME\":\"Oregon\",\"GEO_ID\":\"0400000US41\",\"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":40860.694,\"NAME\":\"Ohio\",\"GEO_ID\":\"0400000US39\",\"L"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":48617.905,\"NAME\":\"North Carolina\",\"GEO_ID\":\"0400000"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":82643.117,\"NAME\":\"Idaho\",\"GEO_ID\":\"0400000US16\",\""| __truncated__ ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> roller_data <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AgeF =</span> <span class="fu">as.factor</span>(AgeGroup), <span class="at">ScaleF =</span> <span class="fu">as.factor</span>(Scale), <span class="at">TypeF =</span> <span class="fu">as.factor</span>(Type), <span class="at">DesignF =</span> <span class="fu">as.factor</span>(Design), <span class="at">InverssionF =</span> <span class="fu">as.factor</span>(<span class="st">'Inverstions?'</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># one-way using table for roller coaster data</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(roller_data<span class="sc">$</span>AgeF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1:Older 2:Recent 3:Newest 
+      69      190      376 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2 way using filter and table </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AgeF <span class="sc">==</span> <span class="st">"3:Newest"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ScaleF, TypeF)<span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         TypeF
+ScaleF    Steel Wood
+  Extreme   126   21
+  Family    120    5
+  Kiddie     14    0
+  Thrill     79   11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 way table using group and summarize then followed by using pivot wider </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'AgeF'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+# Groups:   AgeF [3]
+   AgeF     ScaleF  count
+   &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;
+ 1 1:Older  Extreme    17
+ 2 1:Older  Family     13
+ 3 1:Older  Kiddie      5
+ 4 1:Older  Thrill     34
+ 5 2:Recent Extreme   105
+ 6 2:Recent Family     40
+ 7 2:Recent Kiddie      9
+ 8 2:Recent Thrill     36
+ 9 3:Newest Extreme   147
+10 3:Newest Family    125
+11 3:Newest Kiddie     14
+12 3:Newest Thrill     90</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ScaleF, <span class="at">values_from =</span> count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'AgeF'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+# Groups:   AgeF [3]
+  AgeF     Extreme Family Kiddie Thrill
+  &lt;fct&gt;      &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
+1 1:Older       17     13      5     34
+2 2:Recent     105     40      9     36
+3 3:Newest     147    125     14     90</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating graphs</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster by Age Group"</span>,<span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">fill =</span> ScaleF))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster Scale by Age Group"</span>, <span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="st">"Scale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables with means and sd</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_TopSpeed =</span> <span class="fu">mean</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_TopSpeed =</span> <span class="fu">sd</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_MaxHeight =</span> <span class="fu">mean</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_MaxHeight =</span> <span class="fu">sd</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
+          &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+1          42.2        19.4           76.8         61.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables filtered by Age group</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_TopSpeed =</span> <span class="fu">mean</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_TopSpeed =</span> <span class="fu">sd</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_MaxHeight =</span> <span class="fu">mean</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_MaxHeight =</span> <span class="fu">sd</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'AgeF'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+# Groups:   AgeF [3]
+   AgeF     ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
+   &lt;fct&gt;    &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1 1:Older  Extreme          53.6        6.09           94.9        24.1 
+ 2 1:Older  Family           25.2       13.0            33.4        23.9 
+ 3 1:Older  Kiddie           16.2       18.9            21.2        21.7 
+ 4 1:Older  Thrill           40.4       13.0            62.2        22.1 
+ 5 2:Recent Extreme          55.1       10.2           119.         49.1 
+ 6 2:Recent Family           23.1       11.3            31.4        28.0 
+ 7 2:Recent Kiddie           10.2        4.22           12.2         3.61
+ 8 2:Recent Thrill           38.1        9.79           61.9        20.8 
+ 9 3:Newest Extreme          58.6       15.3           136.         65.9 
+10 3:Newest Family           21.4       10.9            24.9        20.8 
+11 3:Newest Kiddie           11.4       11.9            18.3        30.9 
+12 3:Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric by Age and Scale</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_TopSpeed =</span> <span class="fu">mean</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_TopSpeed =</span> <span class="fu">sd</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_MaxHeight =</span> <span class="fu">mean</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_MaxHeight =</span> <span class="fu">sd</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'AgeF'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+# Groups:   AgeF [3]
+   AgeF     ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
+   &lt;fct&gt;    &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1 1:Older  Extreme          53.6        6.09           94.9        24.1 
+ 2 1:Older  Family           25.2       13.0            33.4        23.9 
+ 3 1:Older  Kiddie           16.2       18.9            21.2        21.7 
+ 4 1:Older  Thrill           40.4       13.0            62.2        22.1 
+ 5 2:Recent Extreme          55.1       10.2           119.         49.1 
+ 6 2:Recent Family           23.1       11.3            31.4        28.0 
+ 7 2:Recent Kiddie           10.2        4.22           12.2         3.61
+ 8 2:Recent Thrill           38.1        9.79           61.9        20.8 
+ 9 3:Newest Extreme          58.6       15.3           136.         65.9 
+10 3:Newest Family           21.4       10.9            24.9        20.8 
+11 3:Newest Kiddie           11.4       11.9            18.3        30.9 
+12 3:Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation between Top speed and Max height</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(TopSpeed, MaxHeight)<span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summarize</span>(<span class="at">corr =</span> <span class="fu">cor</span>(TopSpeed, MaxHeight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+   corr
+  &lt;dbl&gt;
+1 0.904</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation for all numericc         </span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Year Opened</span><span class="st">`</span>, TopSpeed, MaxHeight, Drop, Length, Duration, <span class="st">`</span><span class="at"># of Inversions</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Year Opened   TopSpeed MaxHeight      Drop      Length
+Year Opened      1.00000000 0.07523024 0.1744486 0.1488023 -0.05230856
+TopSpeed         0.07523024 1.00000000 0.8995804 0.9106544  0.72958067
+MaxHeight        0.17444865 0.89958035 1.0000000 0.9588304  0.60634255
+Drop             0.14880229 0.91065440 0.9588304 1.0000000  0.64206458
+Length          -0.05230856 0.72958067 0.6063425 0.6420646  1.00000000
+Duration         0.01910470 0.33969411 0.2666018 0.2665382  0.50693203
+# of Inversions  0.16157407 0.33770901 0.3102168 0.2957917  0.19466332
+                 Duration # of Inversions
+Year Opened     0.0191047       0.1615741
+TopSpeed        0.3396941       0.3377090
+MaxHeight       0.2666018       0.3102168
+Drop            0.2665382       0.2957917
+Length          0.5069320       0.1946633
+Duration        1.0000000       0.1094986
+# of Inversions 0.1094986       1.0000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric graphs with top speed</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data, <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed)) </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Top Speed (mph)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 74 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Top Speed (mph)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 74 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> TopSpeed, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph) of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 74 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric graphs with max height</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data, <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight)) </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 8 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 8 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> MaxHeight, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Max Height of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 8 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(TopSpeed, MaxHeight), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">y =</span> MaxHeight, <span class="at">color =</span> MaxHeight)) </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#faceting with 1 categorical variable</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>AgeF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#faceting with 2 categorical variables</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>) <span class="sc">+</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>AgeF <span class="sc">+</span> <span class="er">~</span>ScaleF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Jon_version_files/figure-html/unnamed-chunk-2-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
