@@ -62,3 +62,46 @@ NASA_data
   
 ```
 
+## Task 2
+
+```{r}
+setwd("C:/Users/davenportjm/Documents/repos")
+roller_data <- read_csv("635USrollercoasters.csv") 
+roller_data <-as_tibble(roller_data)
+str(roller_data)
+roller_data <- roller_data |>
+  mutate(AgeF = as.factor(AgeGroup), ScaleF = as.factor(Scale), TypeF = as.factor(Type), DesignF = as.factor(Design), InverssionF = as.factor('Inverstions?'))
+
+# one-way using table for roller coaster data
+table(roller_data$AgeF)
+
+#2 way using filter and table 
+roller_data |>
+  filter(AgeF == "3:Newest") |>
+  select(ScaleF, TypeF)|>
+  table()
+
+# 2 way table using group and summarize then followed by using pivot wider 
+roller_data |>
+  group_by(AgeF, ScaleF) |>
+  summarize(count = n())
+
+roller_data |>
+  group_by(AgeF, ScaleF) |>
+  summarize(count = n()) |>
+  pivot_wider(names_from = ScaleF, values_from = count)
+
+#creating graphs
+
+g1 <- ggplot(data=roller_data, aes(x = AgeF))
+g1 + geom_bar() +
+  labs(title = "Roller Coaster by Age Group",x = "Age of Roller Coaster")
+
+
+g2 <- ggplot(data=roller_data, aes(x = AgeF, fill = ScaleF))
+g2 + geom_bar() +
+  labs(title = "Roller Coaster Scale by Age Group", x = "Age of Roller Coaster") +
+  scale_fill_discrete("Scale")
+
+```
+
