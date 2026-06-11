@@ -9,11 +9,15 @@ format: html
 ```{r}
 library(httr)
 library(tidyverse)
+#loading API data on Apple from top headlines
 API_data <- GET("https://newsapi.org/v2/top-headlines?q=Apple&country=us&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
 str(API_data)
+
+#bringing in the jsonlite package to parse
 library(jsonlite)
 parsed <- fromJSON(rawToChar(API_data$content))
 
+#converting the Apple data from top headlines into a tibble
 Apple_data <- tibble(
     source_name = parsed$articles$source$name,
     author      = parsed$articles$author,
@@ -23,14 +27,18 @@ Apple_data <- tibble(
     content     = parsed$articles$content
   )
 
+#looking at the new Apple data tibble
 Apple_data
 
-
+#now loading API data on Tesla from top headlines
 API_data <- GET("https://newsapi.org/v2/everything?q=tesla&from=2026-05-09&sortBy=publishedAt&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
 str(API_data)
+
+#parsing data again
 library(jsonlite)
 parsed <- fromJSON(rawToChar(API_data$content))
 
+#creating the Tesla tibble from the API data
 Tesla_data <- tibble(
     source_name = parsed$articles$source$name,
     author      = parsed$articles$author,
@@ -40,11 +48,14 @@ Tesla_data <- tibble(
     content     = parsed$articles$content
   )
 
+#checking the new tibble on the Tesla data
 Tesla_data
 
-
+#now going through the API process for a 3rd time but looking at top headlines for NASA
 API_data <- GET("https://newsapi.org/v2/everything?q=nasa&from=2026-05-09&sortBy=publishedAt&apiKey=d5aec3291c0a4f7485565a95febd8f8d")
 str(API_data)
+
+#parsing data again and creating tibble for NASA API data
 library(jsonlite)
 parsed <- fromJSON(rawToChar(API_data$content))
 
@@ -57,6 +68,7 @@ NASA_data <- tibble(
     content     = parsed$articles$content
   )
 
+#checking new tibble on NASA data
 NASA_data
 
   
@@ -65,10 +77,15 @@ NASA_data
 ## Task 2
 
 ```{r}
+#setting working directory for roller coaster data and reading it in to R
 setwd("C:/Users/davenportjm/Documents/repos")
 roller_data <- read_csv("635USrollercoasters.csv") 
+
+#converting to a tibble and checking the data
 roller_data <- as_tibble(roller_data)
 str(roller_data)
+
+#creating object with roller data and mutating data to update Age Group names without the numbers. Also converting other data to factors
 roller_data <- roller_data |>
   mutate(
     AgeF= factor(AgeGroup, levels = c("1:Older", "2:Recent", "3:Newest"),
@@ -98,24 +115,30 @@ roller_data |>
   summarize(count = n()) |>
   pivot_wider(names_from = ScaleF, values_from = count)
 
-#creating graphs
+#creating graphs after storing initial as an object for each one then adding specific plot parameters
+
+#1st plot is bar graph of roller coasters by age group. 
+
+#More recent or newer roller coasters than older ones in the dataset. 
 
 g1 <- ggplot(data=roller_data, aes(x = AgeF))
 g1 + geom_bar() +
   labs(title = "Roller Coaster by Age Group",x = "Age of Roller Coaster")
 
+# 2nd plot is bar graph with roller coasters by age and using the fill function for scale factor. 
 
+#Not only are there more recent roller coasters by there are more in the family category for the most recent ones. 
 g2 <- ggplot(data=roller_data, aes(x = AgeF, fill = ScaleF))
 g2 + geom_bar() +
   labs(title = "Roller Coaster Scale by Age Group", x = "Age of Roller Coaster") +
   scale_fill_discrete("Scale")
 
 
-#numeric variables with means and sd
+#numeric variables with means and sd for Top Speed and Max Height of roller coaster data
 roller_data |>
   summarize(mean_TopSpeed = mean(TopSpeed, na.rm = TRUE), sd_TopSpeed = sd(TopSpeed, na.rm = TRUE), mean_MaxHeight = mean(MaxHeight, na.rm = TRUE), sd_MaxHeight = sd(MaxHeight, na.rm = TRUE))
 
-#numeric variables filtered by Age group
+#numeric variables of Top Speed and Max Height filtered by Age and Scale categorical groups
 roller_data |>
   group_by(AgeF, ScaleF) |>
   summarize(mean_TopSpeed = mean(TopSpeed, na.rm = TRUE), sd_TopSpeed = sd(TopSpeed, na.rm = TRUE), mean_MaxHeight = mean(MaxHeight, na.rm = TRUE), sd_MaxHeight = sd(MaxHeight, na.rm = TRUE))
@@ -126,49 +149,58 @@ roller_data |>
   summarize(mean_TopSpeed = mean(TopSpeed, na.rm = TRUE), sd_TopSpeed = sd(TopSpeed, na.rm = TRUE), mean_MaxHeight = mean(MaxHeight, na.rm = TRUE), sd_MaxHeight = sd(MaxHeight, na.rm = TRUE))
 
 #correlation between Top speed and Max height
+#Big surprise, there is a 0.903 positive relationship with Top Speed of a roller coaster and the Max Height.
 roller_data |>
   drop_na(TopSpeed, MaxHeight)|>
             summarize(corr = cor(TopSpeed, MaxHeight))
    
-#correlation for all numeric      
+#correlation for all numeric variables.
+#Top results are fairly high positive relationships between Drop and Top Speed (0.91), Drop and Max height (0.95), and Top speed and Max height (0.90). No real relationships among other variables. Was surprised with the Year opened not having a relationship with most variables as I hypothesized newer roller coasters might be faster/higher.
 roller_data |>
   select(`Year Opened`, TopSpeed, MaxHeight, Drop, Length, Duration, `# of Inversions`) |>
   drop_na() |>
   cor()
 
-#numeric graphs with top speed
+#numeric histogram with Top speed after creating object g3
 g3 <-ggplot(roller_data, aes(x = TopSpeed)) 
 g3 + geom_histogram() +
   labs(title = "Top Speed of Roller Coasters", x = "Top Speed (mph)")
 
+#numeric kernel density graph with Top speed and using Age as a fill
 g3 + geom_density(alpha = 0.5, aes(fill = AgeF))+
   labs(title = "Top Speed of Roller Coasters", x = "Top Speed (mph)", y = "Count")
 
+#numeric boxplot graph with Top speed and using Age as a fill
 g3 + geom_boxplot(aes(x = AgeF, y = TopSpeed, fill = AgeF)) +
   labs(title = "Top Speed of Roller Coasters", x = "Age", y = "Top Speed (mph) of Roller Coasters")
 
-#numeric graphs with max height
+#numeric histogram with max height after creating object g4
 g4 <-ggplot(roller_data, aes(x = MaxHeight)) 
 g4 + geom_histogram() +
   labs(title = "Max Height of Roller Coasters", x = "Max Height (ft)")
 
+#numeric kernel density graph with Max height and using Age as a fill
 g4 + geom_density(alpha = 0.5, aes(fill = AgeF))+
   labs(title = "Max Height of Roller Coasters", x = "Max Height (ft)", y = "Count")
 
+#numeric boxplot graph with Max height and using Age as a fill
 g4 + geom_boxplot(aes(x = AgeF, y = MaxHeight, fill = AgeF)) +
   labs(title = "Max Height of Roller Coasters", x = "Age", y = "Max Height of Roller Coasters")
 
+#Creating object g5 then creating scatter plot between Top speed and Max height. Plot shows strong positive association that matches correlation above. 
 g5 <-ggplot(roller_data |> drop_na(TopSpeed, MaxHeight), aes(x = TopSpeed, y = MaxHeight, color = MaxHeight)) 
 
+#Higher roller coasters go faster scatter plot.
 g5 + geom_point() +
   labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)")
 
-#faceting with 1 categorical variable
+#Scatterplot between Top speed and Max height with faceting with 1 categorical variable (age of roller coasters). Newer roller coasters do tend to go faster based on the 3rd panel. 
 g5 + geom_point() +
   labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)") +
   facet_wrap(~AgeF)
 
-#faceting with 2 categorical variables
+#Scatterplot between Top speed and Max height with faceting with 2 categorical variables (age of roller coasters and scale of rating). 
+#The plot is pretty busy with so many panels but you can see a little bit of a relationship between scale of rating and recent/newest roller coasters reaching taller heights.
 g5 + geom_point() +
   labs(title = "Higher roller coasters reach faster speeds", x = "Max Height (ft)", y = "Top Speed (mph)") +
   facet_wrap(~AgeF + ~ScaleF)

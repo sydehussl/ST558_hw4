@@ -186,14 +186,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/top-headlines?q=Apple&amp;country=us&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#loading API data on Apple from top headlines</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/top-headlines?q=Apple&amp;country=us&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 10
  $ url        : chr "https://newsapi.org/v2/top-headlines?q=Apple&amp;country=us&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 200
  $ headers    :List of 12
-  ..$ date            : chr "Wed, 10 Jun 2026 22:16:06 GMT"
+  ..$ date            : chr "Thu, 11 Jun 2026 20:53:59 GMT"
   ..$ content-type    : chr "application/json; charset=utf-8"
   ..$ cache-control   : chr "no-cache"
   ..$ pragma          : chr "no-cache"
@@ -201,17 +202,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ..$ x-cached-result : chr "false"
   ..$ cf-cache-status : chr "DYNAMIC"
   ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sI8"| __truncated__
+  ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=b9k"| __truncated__
   ..$ content-encoding: chr "gzip"
   ..$ server          : chr "cloudflare"
-  ..$ cf-ray          : chr "a09bbd12ede2f2e9-IAD"
+  ..$ cf-ray          : chr "a0a38228ef5c59e5-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 200
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date            : chr "Wed, 10 Jun 2026 22:16:06 GMT"
+  .. .. ..$ date            : chr "Thu, 11 Jun 2026 20:53:59 GMT"
   .. .. ..$ content-type    : chr "application/json; charset=utf-8"
   .. .. ..$ cache-control   : chr "no-cache"
   .. .. ..$ pragma          : chr "no-cache"
@@ -219,10 +220,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .. .. ..$ x-cached-result : chr "false"
   .. .. ..$ cf-cache-status : chr "DYNAMIC"
   .. .. ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sI8"| __truncated__
+  .. .. ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=b9k"| __truncated__
   .. .. ..$ content-encoding: chr "gzip"
   .. .. ..$ server          : chr "cloudflare"
-  .. .. ..$ cf-ray          : chr "a09bbd12ede2f2e9-IAD"
+  .. .. ..$ cf-ray          : chr "a0a38228ef5c59e5-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -232,9 +233,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ..$ expiration: 'POSIXct' num(0) 
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
- $ content    : raw [1:1685] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 22:16:06"
- $ times      : Named num [1:6] 0 0.0419 0.062 0.1056 0.1939 ...
+ $ content    : raw [1:853] 7b 22 73 74 ...
+ $ date       : POSIXct[1:1], format: "2026-06-11 20:53:59"
+ $ times      : Named num [1:6] 0 0.142 0.185 0.24 0.319 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -252,7 +253,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ handle     :Class 'curl_handle' &lt;externalptr&gt; 
  - attr(*, "class")= chr "response"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bringing in the jsonlite package to parse</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'jsonlite' was built under R version 4.5.2</code></pre>
 </div>
@@ -266,31 +268,33 @@ The following object is masked from 'package:purrr':
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Apple_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>Apple_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#converting the Apple data from top headlines into a tibble</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Apple_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#looking at the new Apple data tibble</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>Apple_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 6
-  source_name author                     title         url   publishedAt content
-  &lt;chr&gt;       &lt;chr&gt;                      &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;  
-1 TechCrunch  Morgan Little, Aisha Malik WWDC 2026: E… http… 2026-06-09… "Apple…
-2 The Verge   Robert Hart                Apple wants … http… 2026-06-09… "&lt;ul&gt;&lt;…</code></pre>
+<pre><code># A tibble: 1 × 6
+  source_name author           title                   url   publishedAt content
+  &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;  
+1 MacRumors   Hartley Charlton Craig Federighi Explai… http… 2026-06-10… Apple …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=tesla&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#now loading API data on Tesla from top headlines</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=tesla&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 10
  $ url        : chr "https://newsapi.org/v2/everything?q=tesla&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 426
  $ headers    :List of 12
-  ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
+  ..$ date           : chr "Thu, 11 Jun 2026 20:54:00 GMT"
   ..$ content-type   : chr "application/json; charset=utf-8"
   ..$ content-length : chr "255"
   ..$ cache-control  : chr "no-cache"
@@ -299,16 +303,16 @@ The following object is masked from 'package:purrr':
   ..$ x-cached-result: chr "false"
   ..$ cf-cache-status: chr "DYNAMIC"
   ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5kd"| __truncated__
+  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uw6"| __truncated__
   ..$ server         : chr "cloudflare"
-  ..$ cf-ray         : chr "a09bbd14ec7ef2e9-IAD"
+  ..$ cf-ray         : chr "a0a3822b88bd59e5-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 426
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
+  .. .. ..$ date           : chr "Thu, 11 Jun 2026 20:54:00 GMT"
   .. .. ..$ content-type   : chr "application/json; charset=utf-8"
   .. .. ..$ content-length : chr "255"
   .. .. ..$ cache-control  : chr "no-cache"
@@ -317,9 +321,9 @@ The following object is masked from 'package:purrr':
   .. .. ..$ x-cached-result: chr "false"
   .. .. ..$ cf-cache-status: chr "DYNAMIC"
   .. .. ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5kd"| __truncated__
+  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uw6"| __truncated__
   .. .. ..$ server         : chr "cloudflare"
-  .. .. ..$ cf-ray         : chr "a09bbd14ec7ef2e9-IAD"
+  .. .. ..$ cf-ray         : chr "a0a3822b88bd59e5-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -330,8 +334,8 @@ The following object is masked from 'package:purrr':
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:255] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 22:16:07"
- $ times      : Named num [1:6] 0 0 0 0.000408 0.06409 ...
+ $ date       : POSIXct[1:1], format: "2026-06-11 20:54:00"
+ $ times      : Named num [1:6] 0 0 0 0.000491 0.057231 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -349,30 +353,34 @@ The following object is masked from 'package:purrr':
  $ handle     :Class 'curl_handle' &lt;externalptr&gt; 
  - attr(*, "class")= chr "response"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>Tesla_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>Tesla_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#parsing data again</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#creating the Tesla tibble from the API data</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Tesla_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#checking the new tibble on the Tesla data</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>Tesla_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=nasa&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#now going through the API process for a 3rd time but looking at top headlines for NASA</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=nasa&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 10
  $ url        : chr "https://newsapi.org/v2/everything?q=nasa&amp;from=2026-05-09&amp;sortBy=publishedAt&amp;apiKey=d5aec3291c0a4f7485565a95febd8f8d"
  $ status_code: int 426
  $ headers    :List of 12
-  ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
+  ..$ date           : chr "Thu, 11 Jun 2026 20:54:00 GMT"
   ..$ content-type   : chr "application/json; charset=utf-8"
   ..$ content-length : chr "255"
   ..$ cache-control  : chr "no-cache"
@@ -381,16 +389,16 @@ The following object is masked from 'package:purrr':
   ..$ x-cached-result: chr "false"
   ..$ cf-cache-status: chr "DYNAMIC"
   ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xm6"| __truncated__
+  ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EqU"| __truncated__
   ..$ server         : chr "cloudflare"
-  ..$ cf-ray         : chr "a09bbd15df61f2e9-IAD"
+  ..$ cf-ray         : chr "a0a3822cc96b59e5-IAD"
   ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ all_headers:List of 1
   ..$ :List of 3
   .. ..$ status : int 426
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 12
-  .. .. ..$ date           : chr "Wed, 10 Jun 2026 22:16:07 GMT"
+  .. .. ..$ date           : chr "Thu, 11 Jun 2026 20:54:00 GMT"
   .. .. ..$ content-type   : chr "application/json; charset=utf-8"
   .. .. ..$ content-length : chr "255"
   .. .. ..$ cache-control  : chr "no-cache"
@@ -399,9 +407,9 @@ The following object is masked from 'package:purrr':
   .. .. ..$ x-cached-result: chr "false"
   .. .. ..$ cf-cache-status: chr "DYNAMIC"
   .. .. ..$ nel            : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
-  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xm6"| __truncated__
+  .. .. ..$ report-to      : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EqU"| __truncated__
   .. .. ..$ server         : chr "cloudflare"
-  .. .. ..$ cf-ray         : chr "a09bbd15df61f2e9-IAD"
+  .. .. ..$ cf-ray         : chr "a0a3822cc96b59e5-IAD"
   .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
  $ cookies    :'data.frame':    0 obs. of  7 variables:
   ..$ domain    : logi(0) 
@@ -412,8 +420,8 @@ The following object is masked from 'package:purrr':
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:255] 7b 22 73 74 ...
- $ date       : POSIXct[1:1], format: "2026-06-10 22:16:07"
- $ times      : Named num [1:6] 0 0 0 0.000365 0.056724 ...
+ $ date       : POSIXct[1:1], format: "2026-06-11 20:54:00"
+ $ times      : Named num [1:6] 0 0 0 0.000525 0.051077 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -431,19 +439,21 @@ The following object is masked from 'package:purrr':
  $ handle     :Class 'curl_handle' &lt;externalptr&gt; 
  - attr(*, "class")= chr "response"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>NASA_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>NASA_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#parsing data again and creating tibble for NASA API data</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>NASA_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_name =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>source<span class="sc">$</span>name,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">author      =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>author,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title       =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>title,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">url         =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>url,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">publishedAt =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>publishedAt,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">content     =</span> parsed<span class="sc">$</span>articles<span class="sc">$</span>content</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#checking new tibble on NASA data</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>NASA_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 0</code></pre>
 </div>
@@ -452,8 +462,9 @@ The following object is masked from 'package:purrr':
 <section id="task-2" class="level2">
 <h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/davenportjm/Documents/repos"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"635USrollercoasters.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setting working directory for roller coaster data and reading it in to R</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/davenportjm/Documents/repos"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"635USrollercoasters.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 635 Columns: 21
 ── Column specification ────────────────────────────────────────────────────────
@@ -464,8 +475,9 @@ dbl  (9): Year Opened, TopSpeed, MaxHeight, Drop, Length, Duration, # of Inv...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span><span class="fu">as_tibble</span>(roller_data)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(roller_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#converting to a tibble and checking the data</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(roller_data)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(roller_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [635 × 21] (S3: tbl_df/tbl/data.frame)
  $ Coaster        : chr [1:635] "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
@@ -490,19 +502,27 @@ dbl  (9): Year Opened, TopSpeed, MaxHeight, Drop, Length, Duration, # of Inv...
  $ Longitude      : num [1:635] -122.7 -84.3 -80.8 -116.7 -82.6 ...
  $ Boundary       : chr [1:635] "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":95988.013,\"NAME\":\"Oregon\",\"GEO_ID\":\"0400000US41\",\"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":40860.694,\"NAME\":\"Ohio\",\"GEO_ID\":\"0400000US39\",\"L"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":48617.905,\"NAME\":\"North Carolina\",\"GEO_ID\":\"0400000"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":82643.117,\"NAME\":\"Idaho\",\"GEO_ID\":\"0400000US16\",\""| __truncated__ ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> roller_data <span class="sc">|&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AgeF =</span> <span class="fu">as.factor</span>(AgeGroup), <span class="at">ScaleF =</span> <span class="fu">as.factor</span>(Scale), <span class="at">TypeF =</span> <span class="fu">as.factor</span>(Type), <span class="at">DesignF =</span> <span class="fu">as.factor</span>(Design), <span class="at">InverssionF =</span> <span class="fu">as.factor</span>(<span class="st">'Inverstions?'</span>))</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># one-way using table for roller coaster data</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(roller_data<span class="sc">$</span>AgeF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating object with roller data and mutating data to update Age Group names without the numbers. Also converting other data to factors</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="ot">&lt;-</span> roller_data <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">AgeF=</span> <span class="fu">factor</span>(AgeGroup, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"1:Older"</span>, <span class="st">"2:Recent"</span>, <span class="st">"3:Newest"</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Older"</span>, <span class="st">"Recent"</span>, <span class="st">"Newest"</span>)),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ScaleF     =</span> <span class="fu">as.factor</span>(Scale),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">TypeF      =</span> <span class="fu">as.factor</span>(Type),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">DesignF    =</span> <span class="fu">as.factor</span>(Design),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">InversionF =</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Inversions?</span><span class="st">`</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># one-way using table for roller coaster data</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(roller_data<span class="sc">$</span>AgeF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- 1:Older 2:Recent 3:Newest 
-      69      190      376 </code></pre>
+ Older Recent Newest 
+    69    190    376 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2 way using filter and table </span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AgeF <span class="sc">==</span> <span class="st">"3:Newest"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AgeF <span class="sc">==</span> <span class="st">"Newest"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ScaleF, TypeF)<span class="sc">|&gt;</span></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -524,20 +544,20 @@ ScaleF    Steel Wood
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 3
 # Groups:   AgeF [3]
-   AgeF     ScaleF  count
-   &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;
- 1 1:Older  Extreme    17
- 2 1:Older  Family     13
- 3 1:Older  Kiddie      5
- 4 1:Older  Thrill     34
- 5 2:Recent Extreme   105
- 6 2:Recent Family     40
- 7 2:Recent Kiddie      9
- 8 2:Recent Thrill     36
- 9 3:Newest Extreme   147
-10 3:Newest Family    125
-11 3:Newest Kiddie     14
-12 3:Newest Thrill     90</code></pre>
+   AgeF   ScaleF  count
+   &lt;fct&gt;  &lt;fct&gt;   &lt;int&gt;
+ 1 Older  Extreme    17
+ 2 Older  Family     13
+ 3 Older  Kiddie      5
+ 4 Older  Thrill     34
+ 5 Recent Extreme   105
+ 6 Recent Family     40
+ 7 Recent Kiddie      9
+ 8 Recent Thrill     36
+ 9 Newest Extreme   147
+10 Newest Family    125
+11 Newest Kiddie     14
+12 Newest Thrill     90</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
@@ -550,17 +570,21 @@ ScaleF    Steel Wood
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
 # Groups:   AgeF [3]
-  AgeF     Extreme Family Kiddie Thrill
-  &lt;fct&gt;      &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
-1 1:Older       17     13      5     34
-2 2:Recent     105     40      9     36
-3 3:Newest     147    125     14     90</code></pre>
+  AgeF   Extreme Family Kiddie Thrill
+  &lt;fct&gt;    &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
+1 Older       17     13      5     34
+2 Recent     105     40      9     36
+3 Newest     147    125     14     90</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating graphs</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating graphs after storing initial as an object for each one then adding specific plot parameters</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF))</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster by Age Group"</span>,<span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#1st plot is bar graph of roller coasters by age group. </span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#More recent or newer roller coasters than older ones in the dataset. </span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF))</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster by Age Group"</span>,<span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -568,10 +592,13 @@ ScaleF    Steel Wood
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">fill =</span> ScaleF))</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster Scale by Age Group"</span>, <span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>) <span class="sc">+</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="st">"Scale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2nd plot is bar graph with roller coasters by age and using the fill function for scale factor. </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Not only are there more recent roller coasters by there are more in the family category for the most recent ones. </span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>roller_data, <span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">fill =</span> ScaleF))</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Roller Coaster Scale by Age Group"</span>, <span class="at">x =</span> <span class="st">"Age of Roller Coaster"</span>) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="st">"Scale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -579,7 +606,7 @@ ScaleF    Steel Wood
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables with means and sd</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables with means and sd for Top Speed and Max Height of roller coaster data</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_TopSpeed =</span> <span class="fu">mean</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_TopSpeed =</span> <span class="fu">sd</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_MaxHeight =</span> <span class="fu">mean</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_MaxHeight =</span> <span class="fu">sd</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -588,7 +615,7 @@ ScaleF    Steel Wood
           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
 1          42.2        19.4           76.8         61.5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables filtered by Age group</span></span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric variables of Top Speed and Max Height filtered by Age and Scale categorical groups</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AgeF, ScaleF) <span class="sc">|&gt;</span></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_TopSpeed =</span> <span class="fu">mean</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_TopSpeed =</span> <span class="fu">sd</span>(TopSpeed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_MaxHeight =</span> <span class="fu">mean</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_MaxHeight =</span> <span class="fu">sd</span>(MaxHeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -599,20 +626,20 @@ ScaleF    Steel Wood
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 6
 # Groups:   AgeF [3]
-   AgeF     ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
-   &lt;fct&gt;    &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
- 1 1:Older  Extreme          53.6        6.09           94.9        24.1 
- 2 1:Older  Family           25.2       13.0            33.4        23.9 
- 3 1:Older  Kiddie           16.2       18.9            21.2        21.7 
- 4 1:Older  Thrill           40.4       13.0            62.2        22.1 
- 5 2:Recent Extreme          55.1       10.2           119.         49.1 
- 6 2:Recent Family           23.1       11.3            31.4        28.0 
- 7 2:Recent Kiddie           10.2        4.22           12.2         3.61
- 8 2:Recent Thrill           38.1        9.79           61.9        20.8 
- 9 3:Newest Extreme          58.6       15.3           136.         65.9 
-10 3:Newest Family           21.4       10.9            24.9        20.8 
-11 3:Newest Kiddie           11.4       11.9            18.3        30.9 
-12 3:Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
+   AgeF   ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
+   &lt;fct&gt;  &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Older  Extreme          53.6        6.09           94.9        24.1 
+ 2 Older  Family           25.2       13.0            33.4        23.9 
+ 3 Older  Kiddie           16.2       18.9            21.2        21.7 
+ 4 Older  Thrill           40.4       13.0            62.2        22.1 
+ 5 Recent Extreme          55.1       10.2           119.         49.1 
+ 6 Recent Family           23.1       11.3            31.4        28.0 
+ 7 Recent Kiddie           10.2        4.22           12.2         3.61
+ 8 Recent Thrill           38.1        9.79           61.9        20.8 
+ 9 Newest Extreme          58.6       15.3           136.         65.9 
+10 Newest Family           21.4       10.9            24.9        20.8 
+11 Newest Kiddie           11.4       11.9            18.3        30.9 
+12 Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric by Age and Scale</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
@@ -625,36 +652,38 @@ ScaleF    Steel Wood
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 6
 # Groups:   AgeF [3]
-   AgeF     ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
-   &lt;fct&gt;    &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
- 1 1:Older  Extreme          53.6        6.09           94.9        24.1 
- 2 1:Older  Family           25.2       13.0            33.4        23.9 
- 3 1:Older  Kiddie           16.2       18.9            21.2        21.7 
- 4 1:Older  Thrill           40.4       13.0            62.2        22.1 
- 5 2:Recent Extreme          55.1       10.2           119.         49.1 
- 6 2:Recent Family           23.1       11.3            31.4        28.0 
- 7 2:Recent Kiddie           10.2        4.22           12.2         3.61
- 8 2:Recent Thrill           38.1        9.79           61.9        20.8 
- 9 3:Newest Extreme          58.6       15.3           136.         65.9 
-10 3:Newest Family           21.4       10.9            24.9        20.8 
-11 3:Newest Kiddie           11.4       11.9            18.3        30.9 
-12 3:Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
+   AgeF   ScaleF  mean_TopSpeed sd_TopSpeed mean_MaxHeight sd_MaxHeight
+   &lt;fct&gt;  &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Older  Extreme          53.6        6.09           94.9        24.1 
+ 2 Older  Family           25.2       13.0            33.4        23.9 
+ 3 Older  Kiddie           16.2       18.9            21.2        21.7 
+ 4 Older  Thrill           40.4       13.0            62.2        22.1 
+ 5 Recent Extreme          55.1       10.2           119.         49.1 
+ 6 Recent Family           23.1       11.3            31.4        28.0 
+ 7 Recent Kiddie           10.2        4.22           12.2         3.61
+ 8 Recent Thrill           38.1        9.79           61.9        20.8 
+ 9 Newest Extreme          58.6       15.3           136.         65.9 
+10 Newest Family           21.4       10.9            24.9        20.8 
+11 Newest Kiddie           11.4       11.9            18.3        30.9 
+12 Newest Thrill           34.9        7.96           54.4        22.4 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation between Top speed and Max height</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(TopSpeed, MaxHeight)<span class="sc">|&gt;</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summarize</span>(<span class="at">corr =</span> <span class="fu">cor</span>(TopSpeed, MaxHeight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Big surprise, there is a 0.903 positive relationship with Top Speed of a roller coaster and the Max Height.</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(TopSpeed, MaxHeight)<span class="sc">|&gt;</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summarize</span>(<span class="at">corr =</span> <span class="fu">cor</span>(TopSpeed, MaxHeight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
    corr
   &lt;dbl&gt;
 1 0.904</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation for all numericc         </span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Year Opened</span><span class="st">`</span>, TopSpeed, MaxHeight, Drop, Length, Duration, <span class="st">`</span><span class="at"># of Inversions</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation for all numeric variables.</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Top results are fairly high positive relationships between Drop and Top Speed (0.91), Drop and Max height (0.95), and Top speed and Max height (0.90). No real relationships among other variables. Was surprised with the Year opened not having a relationship with most variables as I hypothesized newer roller coasters might be faster/higher.</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>roller_data <span class="sc">|&gt;</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Year Opened</span><span class="st">`</span>, TopSpeed, MaxHeight, Drop, Length, Duration, <span class="st">`</span><span class="at"># of Inversions</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Year Opened   TopSpeed MaxHeight      Drop      Length
 Year Opened      1.00000000 0.07523024 0.1744486 0.1488023 -0.05230856
@@ -673,7 +702,7 @@ Length          0.5069320       0.1946633
 Duration        1.0000000       0.1094986
 # of Inversions 0.1094986       1.0000000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric graphs with top speed</span></span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric histogram with Top speed after creating object g3</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data, <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed)) </span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Top Speed (mph)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -691,8 +720,9 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Top Speed (mph)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric kernel density graph with Top speed and using Age as a fill</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Top Speed (mph)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 74 rows containing non-finite outside the scale range
 (`stat_density()`).</code></pre>
@@ -704,8 +734,9 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> TopSpeed, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph) of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric boxplot graph with Top speed and using Age as a fill</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>g3 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> TopSpeed, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph) of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 74 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
@@ -717,7 +748,7 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric graphs with max height</span></span>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric histogram with max height after creating object g4</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data, <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight)) </span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -735,8 +766,9 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric kernel density graph with Max height and using Age as a fill</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">fill =</span> AgeF))<span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 8 rows containing non-finite outside the scale range
 (`stat_density()`).</code></pre>
@@ -748,8 +780,9 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> MaxHeight, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Max Height of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#numeric boxplot graph with Max height and using Age as a fill</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>g4 <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgeF, <span class="at">y =</span> MaxHeight, <span class="at">fill =</span> AgeF)) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Max Height of Roller Coasters"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Max Height of Roller Coasters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 8 rows containing non-finite outside the scale range
 (`stat_boxplot()`).</code></pre>
@@ -761,10 +794,12 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(TopSpeed, MaxHeight), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">y =</span> MaxHeight, <span class="at">color =</span> MaxHeight)) </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating object g5 then creating scatter plot between Top speed and Max height. Plot shows strong positive association that matches correlation above. </span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(roller_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(TopSpeed, MaxHeight), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">y =</span> MaxHeight, <span class="at">color =</span> MaxHeight)) </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Higher roller coasters go faster scatter plot.</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -772,7 +807,7 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#faceting with 1 categorical variable</span></span>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot between Top speed and Max height with faceting with 1 categorical variable (age of roller coasters). Newer roller coasters do tend to go faster based on the 3rd panel. </span></span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>) <span class="sc">+</span></span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>AgeF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -783,10 +818,11 @@ Duration        1.0000000       0.1094986
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#faceting with 2 categorical variables</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>) <span class="sc">+</span></span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>AgeF <span class="sc">+</span> <span class="er">~</span>ScaleF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot between Top speed and Max height with faceting with 2 categorical variables (age of roller coasters and scale of rating). </span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co">#The plot is pretty busy with so many panels but you can see a little bit of a relationship between scale of rating and recent/newest roller coasters reaching taller heights.</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>g5 <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Higher roller coasters reach faster speeds"</span>, <span class="at">x =</span> <span class="st">"Max Height (ft)"</span>, <span class="at">y =</span> <span class="st">"Top Speed (mph)"</span>) <span class="sc">+</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>AgeF <span class="sc">+</span> <span class="er">~</span>ScaleF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
