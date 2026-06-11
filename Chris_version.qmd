@@ -4,3 +4,308 @@ format: html
 ---
 
 ## Chris's work goes here
+
+# Task 1: Querying a News API
+First, we're querying the news API:
+```{r}
+library(httr)
+library(jsonlite)
+
+# API call
+news_return <- GET("https://newsapi.org/v2/everything?q=Iran&from=2026-05-13&language=en&pageSize=50&apiKey=d41f8e9cca0f4687b4865289b712e088")
+
+str(news_return)
+```
+We've got the data, but most of this looks like metadata we aren't interested in. The articles are stored in the `content` object. We need to parse the raw data using the `jsonlite` package:
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+
+parsed <- fromJSON(rawToChar(news_return$content))
+articles <- parsed$articles |>
+            as_tibble()
+
+articles
+```
+Looks great! Now we'll write a function to query the API more easily:
+```{r}
+query_news <- function(search, start_date, api_key) {
+  # build url
+  url <- paste0("https://newsapi.org/v2/everything?q=",
+                search,
+                "&from=",
+                start_date,
+                "&language=en&pageSize=50&apiKey=",
+                api_key)
+  # call API
+  api_return <- GET(url)
+  
+  # parse return and output as tibble
+  parsed <- fromJSON(rawToChar(api_return$content))
+  articles <- parsed$articles |>
+              as_tibble()
+  return(articles)
+}
+
+# 1) original API call
+query_news("Iran", 2026-05-11, "d41f8e9cca0f4687b4865289b712e088")
+
+# 2) articles about AI from this month
+query_news("AI", 2026-06-01, "d41f8e9cca0f4687b4865289b712e088")
+```
+It works!
+
+# Task 2: Summarizing Roller Coaster Data
+Next, we're reading in data about roller coasters. Let's check out the dataset:
+```{r}
+rcs_raw <- read.csv("https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv")
+
+# remove unnecessary columns
+rcs <- rcs_raw |>
+       select(-c(Boundary, Latitude, Longitude))
+
+# look at types
+str(rcs)
+```
+Looking at these variables and their types, I think we could do some cleaning. Specifically, I see the following:
+
+- `Census.Region`, `AgeGroup`, `Scale`, `type`, `design`, and `inversions` should be factors
+- The "number of inversions" and the "inversions." variable need to be renamed
+
+```{r}
+rcs <- rcs_raw |>
+       select(-c(Boundary, Latitude, Longitude)) |>
+       rename(Inversions =`Inversions.`,
+              Num.Inversions= `X..of.Inversions`) |>
+       mutate(across(c(Census.Region, AgeGroup, Scale, Type, Design, Inversions),
+                          ~ as.factor(.))) |>
+       as_tibble()
+
+rcs
+```
+Now that our data is clean, we should see if there are any missing values to note. I'm finding the proportion of missing values so that we can get a better idea of the missingness:
+```{r}
+round(colSums(is.na(rcs))/nrow(rcs), 3) |>
+  sort(decreasing = TRUE)
+```
+Checking out the output, we can see that the `Drop`, `TopSpeed`, `Duration`, and `Length` variables have the greatest share of missing values. Respectively, they have missingness 20%, %12, %10, and %5. 
+
+## Exploring Categorical Variables:
+
+### Contingency Tables with `table()`
+```{r}
+table(rcs$AgeGroup)
+table(rcs$AgeGroup, rcs$Scale)
+# interpreting this one Vvv
+table(rcs$AgeGroup, rcs$Scale, rcs$Type)
+```
+The value "16" in the second level of the two way table implies that there are 16 older wooden thrill rides in the dataset.
+
+### Conditional Tables
+```{r}
+# way one - subsetting the data
+wood_rcs <- filter(rcs, Type == "Wood")
+table(wood_rcs$AgeGroup, wood_rcs$Scale)
+
+# way two - subsetting a three way table
+table(rcs$AgeGroup, rcs$Scale, rcs$Type)[,,2]
+```
+### Contingency Tables with `group_by()` and `summarize()`
+```{r}
+dplyr_table <- rcs |>
+               select(AgeGroup, Scale, Type) |>
+               group_by(Type, AgeGroup, Scale) |>
+               dplyr::summarize(count = n()) |>
+               pivot_wider(names_from = Scale, values_from = count)
+
+
+dplyr_table
+```
+
+
+### Stacked and Side-by-side Bar Graphs
+Stacked plots are the default option, so we just use `geom_bar()`
+```{r}
+library(ggplot2)
+
+stacked_bar <- ggplot(rcs, aes(x = Scale, fill = Type)) +
+               geom_bar() +
+               labs(title = "Count By Roller Coaster Scale",
+                    subtitle = "Stacked Bars",
+                    y = "Frequency") +
+               theme_minimal()
+
+stacked_bar
+```
+To get the bars to dodge, we just have to specify the `position` argument:
+```{r}
+library(ggplot2)
+
+sbs_bar <- ggplot(rcs, aes(x = Scale, fill = Type)) +
+           geom_bar(position = "dodge") +
+           labs(title = "Count By Roller Coaster Scale",
+                subtitle = "Side-by-side Bars",
+                y = "Frequency") +
+           theme_minimal()
+
+sbs_bar
+```
+
+## Exploring Numeric Variables
+### Center + Spread for two variables
+Now, we're looking at the mean and standard deviation for `TopSpeed` and `MaxHeight`:
+```{r}
+cntr_sprd_tbl <- rcs |>
+                 select(TopSpeed, MaxHeight) |>
+                 drop_na() |> # drop missing due to high missingness for TopSpeed
+                 summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_tbl
+```
+Now subset to only include steel coasters:
+```{r}
+cntr_sprd_tbl_steel <- rcs |>
+                       filter(Type == "Steel") |>
+                       select(TopSpeed, MaxHeight) |>
+                       drop_na() |> # drop missing due to high missingness for TopSpeed
+                       summarize(across(everything(),
+                                        list(mean = mean, sd = sd)))
+
+cntr_sprd_tbl_steel
+```
+### Center + Spread for two variables + Grouping
+```{r}
+cntr_sprd_1grp <- rcs |>
+                  select(Type, TopSpeed, MaxHeight) |>
+                  group_by(Type) |>
+                  drop_na() |> # drop missing due to high missingness for TopSpeed
+                  summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_1grp
+```
+
+```{r}
+cntr_sprd_2grp <- rcs |>
+                  select(Type, Scale, TopSpeed, MaxHeight) |>
+                  group_by(Type, Scale) |>
+                  drop_na() |> # drop missing due to high missingness for TopSpeed
+                  summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_2grp
+```
+As we saw previously, there isn't enough data to estimate the height and speed of the wooden kiddie coasters.
+
+### Correlation Matrix
+```{r}
+rcs_numeric <- select(rcs, where(is.numeric)) |>
+               drop_na()
+
+
+cor(rcs_numeric)
+```
+
+### Histogram
+```{r}
+top_spd_hist <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+                geom_histogram() +
+                labs(title = "Top Speed by Ride Type",
+                     x = "Top Speed (MpH)",
+                     y = "Frequency")
+
+max_hgt_hist <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+                geom_histogram() +
+                labs(title = "Maximum Height by Ride Type",
+                     x = "Height (ft.)",
+                     y = "Frequency")
+
+
+top_spd_hist
+max_hgt_hist
+```
+
+### Density Plots
+```{r}
+top_spd_density <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+                   geom_density(alpha = 0.5) +
+                   labs(title = "Distribution of Top Speed by Ride Type",
+                        x = "Top Speed (MpH)",
+                        y = "Frequency")
+
+max_hgt_density <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+                   geom_density(alpha = 0.5) +
+                   labs(title = "Distribution of Maximum Height by Ride Type",
+                        x = "Height (ft.)",
+                        y = "Frequency")
+
+
+top_spd_density
+max_hgt_density
+```
+### Box Plots
+```{r}
+top_spd_box <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+               geom_boxplot() +
+               labs(title = "Distribution of Top Speed by Ride Type",
+                        x = "Top Speed (MpH)",
+                        y = "Frequency")
+
+max_hgt_box <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+               geom_boxplot() +
+               labs(title = "Distribution of Maximum Height by Ride Type",
+                        x = "Height (ft.)",
+                        y = "Frequency")
+
+
+top_spd_box
+max_hgt_box
+```
+### Scatterplots
+```{r}
+topspd_maxhgt <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed, color = Type)) +
+                 geom_point() +
+                 labs(title = "Top Speed by Max Height",
+                      x = "Max Height (Feet)",
+                      y = "Top Speed (MPH)") +
+                 theme_minimal()
+
+
+topspd_maxhgt
+```
+
+### Faceting:
+```{r}
+topspd_maxhgt_1fct <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+                      geom_point() +
+                      labs(title = "Top Speed by Max Height",
+                               x = "Max Height (Feet)",
+                               y = "Top Speed (MPH)") +
+                      facet_wrap(~Type, nrow = 2) +
+                      theme_minimal()
+
+topspd_maxhgt_1fct
+```
+
+```{r}
+topspd_maxhgt_2fct <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+                      geom_point() +
+                      labs(title = "Top Speed by Max Height",
+                               x = "Max Height (Feet)",
+                               y = "Top Speed (MPH)") +
+                      facet_wrap(vars(Type, Scale)) +
+                      theme_minimal()
+
+topspd_maxhgt_2fct
+```
+
+
+
+
+
+
+
+
+
+

@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -102,8 +137,685 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="chriss-work-goes-here" class="level2">
 <h2 class="anchored" data-anchor-id="chriss-work-goes-here">Chris’s work goes here</h2>
+</section>
+<section id="task-1-querying-a-news-api" class="level1">
+<h1>Task 1: Querying a News API</h1>
+<p>First, we’re querying the news API:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'httr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'jsonlite' was built under R version 4.5.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># API call</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>news_return <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=Iran&amp;from=2026-05-13&amp;language=en&amp;pageSize=50&amp;apiKey=d41f8e9cca0f4687b4865289b712e088"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(news_return)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 10
+ $ url        : chr "https://newsapi.org/v2/everything?q=Iran&amp;from=2026-05-13&amp;language=en&amp;pageSize=50&amp;apiKey=d41f8e9cca0f4687b4865289b712e088"
+ $ status_code: int 200
+ $ headers    :List of 12
+  ..$ date            : chr "Thu, 11 Jun 2026 19:59:36 GMT"
+  ..$ content-type    : chr "application/json; charset=utf-8"
+  ..$ cache-control   : chr "no-cache"
+  ..$ pragma          : chr "no-cache"
+  ..$ expires         : chr "-1"
+  ..$ x-cached-result : chr "false"
+  ..$ cf-cache-status : chr "DYNAMIC"
+  ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+  ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1tI"| __truncated__
+  ..$ content-encoding: chr "gzip"
+  ..$ server          : chr "cloudflare"
+  ..$ cf-ray          : chr "a0a332793a96fb50-SJC"
+  ..- attr(*, "class")= chr [1:2] "insensitive" "list"
+ $ all_headers:List of 1
+  ..$ :List of 3
+  .. ..$ status : int 200
+  .. ..$ version: chr "HTTP/2"
+  .. ..$ headers:List of 12
+  .. .. ..$ date            : chr "Thu, 11 Jun 2026 19:59:36 GMT"
+  .. .. ..$ content-type    : chr "application/json; charset=utf-8"
+  .. .. ..$ cache-control   : chr "no-cache"
+  .. .. ..$ pragma          : chr "no-cache"
+  .. .. ..$ expires         : chr "-1"
+  .. .. ..$ x-cached-result : chr "false"
+  .. .. ..$ cf-cache-status : chr "DYNAMIC"
+  .. .. ..$ nel             : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+  .. .. ..$ report-to       : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1tI"| __truncated__
+  .. .. ..$ content-encoding: chr "gzip"
+  .. .. ..$ server          : chr "cloudflare"
+  .. .. ..$ cf-ray          : chr "a0a332793a96fb50-SJC"
+  .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
+ $ cookies    :'data.frame':    0 obs. of  7 variables:
+  ..$ domain    : logi(0) 
+  ..$ flag      : logi(0) 
+  ..$ path      : logi(0) 
+  ..$ secure    : logi(0) 
+  ..$ expiration: 'POSIXct' num(0) 
+  ..$ name      : logi(0) 
+  ..$ value     : logi(0) 
+ $ content    : raw [1:36757] 7b 22 73 74 ...
+ $ date       : POSIXct[1:1], format: "2026-06-11 19:59:36"
+ $ times      : Named num [1:6] 0 0.0973 0.1868 0.287 0.5316 ...
+  ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
+ $ request    :List of 7
+  ..$ method    : chr "GET"
+  ..$ url       : chr "https://newsapi.org/v2/everything?q=Iran&amp;from=2026-05-13&amp;language=en&amp;pageSize=50&amp;apiKey=d41f8e9cca0f4687b4865289b712e088"
+  ..$ headers   : Named chr "application/json, text/xml, application/xml, */*"
+  .. ..- attr(*, "names")= chr "Accept"
+  ..$ fields    : NULL
+  ..$ options   :List of 2
+  .. ..$ useragent: chr "libcurl/8.14.1 r-curl/7.0.0 httr/1.4.8"
+  .. ..$ httpget  : logi TRUE
+  ..$ auth_token: NULL
+  ..$ output    : list()
+  .. ..- attr(*, "class")= chr [1:2] "write_memory" "write_function"
+  ..- attr(*, "class")= chr "request"
+ $ handle     :Class 'curl_handle' &lt;externalptr&gt; 
+ - attr(*, "class")= chr "response"</code></pre>
+</div>
+</div>
+<p>We’ve got the data, but most of this looks like metadata we aren’t interested in. The articles are stored in the <code>content</code> object. We need to parse the raw data using the <code>jsonlite</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(news_return<span class="sc">$</span>content))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>articles <span class="ot">&lt;-</span> parsed<span class="sc">$</span>articles <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_tibble</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>articles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 49 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran laun… http… https://i… 2026-06-08… "At le…
+ 2 wired     Wired Katie… The … "Jason Rez… http… https://m… 2026-05-26… "What …
+ 3 &lt;NA&gt;      BBC … &lt;NA&gt;   Gree… "The Metro… http… https://i… 2026-05-29… "\"We …
+ 4 &lt;NA&gt;      BBC … &lt;NA&gt;   Bowe… "Under pre… http… https://i… 2026-06-01… "It ha…
+ 5 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran said… http… https://i… 2026-06-08… "Iran …
+ 6 &lt;NA&gt;      BBC … &lt;NA&gt;   Sail… "The uncer… http… https://i… 2026-06-02… "Among…
+ 7 &lt;NA&gt;      BBC … &lt;NA&gt;   Trum… "The reque… http… https://i… 2026-05-31… "The l…
+ 8 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Earlier I… http… https://i… 2026-06-01… "The I…
+ 9 &lt;NA&gt;      BBC … &lt;NA&gt;   Son … "Craig and… http… https://i… 2026-06-07… "On hi…
+10 &lt;NA&gt;      BBC … &lt;NA&gt;   US c… "The lates… http… https://i… 2026-05-28… "The U…
+# ℹ 39 more rows</code></pre>
+</div>
+</div>
+<p>Looks great! Now we’ll write a function to query the API more easily:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>query_news <span class="ot">&lt;-</span> <span class="cf">function</span>(search, start_date, api_key) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># build url</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://newsapi.org/v2/everything?q="</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                search,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"&amp;from="</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                start_date,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">"&amp;language=en&amp;pageSize=50&amp;apiKey="</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                api_key)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># call API</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  api_return <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># parse return and output as tibble</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(api_return<span class="sc">$</span>content))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  articles <span class="ot">&lt;-</span> parsed<span class="sc">$</span>articles <span class="sc">|&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_tibble</span>()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(articles)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) original API call</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">query_news</span>(<span class="st">"Iran"</span>, <span class="dv">2026-05-11</span>, <span class="st">"d41f8e9cca0f4687b4865289b712e088"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 49 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran laun… http… https://i… 2026-06-08… "At le…
+ 2 wired     Wired Katie… The … "Jason Rez… http… https://m… 2026-05-26… "What …
+ 3 &lt;NA&gt;      BBC … &lt;NA&gt;   Gree… "The Metro… http… https://i… 2026-05-29… "\"We …
+ 4 &lt;NA&gt;      BBC … &lt;NA&gt;   Bowe… "Under pre… http… https://i… 2026-06-01… "It ha…
+ 5 &lt;NA&gt;      BBC … &lt;NA&gt;   Sail… "The uncer… http… https://i… 2026-06-02… "Among…
+ 6 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran said… http… https://i… 2026-06-08… "Iran …
+ 7 &lt;NA&gt;      BBC … &lt;NA&gt;   Trum… "The reque… http… https://i… 2026-05-31… "The l…
+ 8 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Earlier I… http… https://i… 2026-06-01… "The I…
+ 9 &lt;NA&gt;      BBC … &lt;NA&gt;   Son … "Craig and… http… https://i… 2026-06-07… "On hi…
+10 &lt;NA&gt;      BBC … &lt;NA&gt;   US c… "The lates… http… https://i… 2026-05-28… "The U…
+# ℹ 39 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) articles about AI from this month</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query_news</span>(<span class="st">"AI"</span>, <span class="dv">2026-06-01</span>, <span class="st">"d41f8e9cca0f4687b4865289b712e088"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 the-verge The … Terre… AI r… "Andon Lab… http… https://p… 2026-05-15… "&lt;ul&gt;&lt;…
+ 2 the-verge The … Rober… AI l… "Some of t… http… https://p… 2026-06-04… "&lt;ul&gt;&lt;…
+ 3 the-verge The … Emma … Micr… "Microsoft… http… https://p… 2026-06-09… "&lt;ul&gt;&lt;…
+ 4 wired     Wired Will … Over… "In a rece… http… https://m… 2026-05-13… "The f…
+ 5 the-verge The … Jay P… Goog… "Google's … http… https://p… 2026-05-22… "&lt;ul&gt;&lt;…
+ 6 the-verge The … Jess … YouT… "In the wa… http… https://p… 2026-05-27… "&lt;ul&gt;&lt;…
+ 7 the-verge The … Jess … Let … "It's almo… http… https://p… 2026-06-04… "&lt;ul&gt;&lt;…
+ 8 the-verge The … Terre… The … "I'm not s… http… https://p… 2026-05-21… "&lt;ul&gt;&lt;…
+ 9 the-verge The … Stevi… Appl… "Along wit… http… https://p… 2026-06-08… "&lt;ul&gt;&lt;…
+10 wired     Wired Kate … We A… "A book ab… http… https://m… 2026-05-29… "Earli…
+11 the-verge The … Stevi… Goog… "Google up… http… https://p… 2026-05-15… "&lt;ul&gt;&lt;…
+12 the-verge The … Stevi… Spot… "Studio by… http… https://p… 2026-05-21… "&lt;ul&gt;&lt;…
+13 the-verge The … Mia S… Pope… "Pope Leo … http… https://p… 2026-05-25… "&lt;ul&gt;&lt;…
+14 the-verge The … David… Appl… "Most of A… http… https://p… 2026-06-09… "&lt;ul&gt;&lt;…
+15 the-verge The … Rober… Appl… "It took a… http… https://p… 2026-06-09… "&lt;ul&gt;&lt;…
+16 wired     Wired Molly… What… "Researche… http… https://m… 2026-05-13… "Build…
+17 wired     Wired Lily … The … "As attack… http… https://m… 2026-05-25… "Natio…</code></pre>
+</div>
+</div>
+<p>It works!</p>
+</section>
+<section id="task-2-summarizing-roller-coaster-data" class="level1">
+<h1>Task 2: Summarizing Roller Coaster Data</h1>
+<p>Next, we’re reading in data about roller coasters. Let’s check out the dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rcs_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove unnecessary columns</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>rcs <span class="ot">&lt;-</span> rcs_raw <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Boundary, Latitude, Longitude))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># look at types</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(rcs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   635 obs. of  18 variables:
+ $ Coaster         : chr  "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
+ $ Park            : chr  "Oaks Amusement Park" "Kings Island" "Carowinds" "Silverwood Theme Park" ...
+ $ City            : chr  "Portland" "Mason" "Charlotte" "Athol" ...
+ $ State           : chr  "Oregon" "Ohio" "North Carolina" "Idaho" ...
+ $ Census.Region   : chr  "West" "Midwest" "South" "West" ...
+ $ Year.Opened     : int  2018 1991 1999 2008 2010 1997 1998 1981 2008 1991 ...
+ $ AgeGroup        : chr  "3:Newest" "2:Recent" "2:Recent" "3:Newest" ...
+ $ TopSpeed        : num  45 35 62 65.6 22 67 35 66 48 50 ...
+ $ MaxHeight       : num  72 63 113 192 25 ...
+ $ Scale           : chr  "Extreme" "Thrill" "Extreme" "Extreme" ...
+ $ Type            : chr  "Steel" "Steel" "Steel" "Steel" ...
+ $ Design          : chr  "Sit Down" "Sit Down" "Inverted" "Inverted" ...
+ $ Drop            : num  70 47 110 177 22.5 170 20 147 80 144 ...
+ $ Length          : num  1050 2963 2956 1204 628 ...
+ $ Duration        : int  66 140 167 92 47 190 100 143 110 110 ...
+ $ Inversions.     : chr  "Yes" "No" "Yes" "Yes" ...
+ $ X..of.Inversions: int  3 0 6 3 0 6 0 0 0 4 ...
+ $ Make            : chr  "Gerstlauer Amusement Rides GmbH" "Arrow Dynamics" "Bolliger &amp; Mabillard" "Vekoma" ...</code></pre>
+</div>
+</div>
+<p>Looking at these variables and their types, I think we could do some cleaning. Specifically, I see the following:</p>
+<ul>
+<li><code>Census.Region</code>, <code>AgeGroup</code>, <code>Scale</code>, <code>type</code>, <code>design</code>, and <code>inversions</code> should be factors</li>
+<li>The “number of inversions” and the “inversions.” variable need to be renamed</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rcs <span class="ot">&lt;-</span> rcs_raw <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Boundary, Latitude, Longitude)) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">rename</span>(<span class="at">Inversions =</span><span class="st">`</span><span class="at">Inversions.</span><span class="st">`</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">Num.Inversions=</span> <span class="st">`</span><span class="at">X..of.Inversions</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Census.Region, AgeGroup, Scale, Type, Design, Inversions),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                          <span class="sc">~</span> <span class="fu">as.factor</span>(.))) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">as_tibble</span>()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>rcs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 635 × 18
+   Coaster         Park  City  State Census.Region Year.Opened AgeGroup TopSpeed
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;fct&gt;               &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;
+ 1 Adrenaline Peak Oaks… Port… Oreg… West                 2018 3:Newest     45  
+ 2 Adventure Expr… King… Mason Ohio  Midwest              1991 2:Recent     35  
+ 3 Afterburn       Caro… Char… Nort… South                1999 2:Recent     62  
+ 4 Aftershock      Silv… Athol Idaho West                 2008 3:Newest     65.6
+ 5 Air Grover      Busc… Tampa Flor… South                2010 3:Newest     22  
+ 6 Alpengeist      Busc… Will… Virg… South                1997 2:Recent     67  
+ 7 Alpine Bobsled  Grea… Quee… New … Northeast            1998 2:Recent     35  
+ 8 American Eagle  Six … Gurn… Illi… Midwest              1981 2:Recent     66  
+ 9 American Thund… Six … Eure… Miss… Midwest              2008 3:Newest     48  
+10 Anaconda        King… Dosw… Virg… South                1991 2:Recent     50  
+# ℹ 625 more rows
+# ℹ 10 more variables: MaxHeight &lt;dbl&gt;, Scale &lt;fct&gt;, Type &lt;fct&gt;, Design &lt;fct&gt;,
+#   Drop &lt;dbl&gt;, Length &lt;dbl&gt;, Duration &lt;int&gt;, Inversions &lt;fct&gt;,
+#   Num.Inversions &lt;int&gt;, Make &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Now that our data is clean, we should see if there are any missing values to note. I’m finding the proportion of missing values so that we can get a better idea of the missingness:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(rcs))<span class="sc">/</span><span class="fu">nrow</span>(rcs), <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Drop       TopSpeed       Duration         Length      MaxHeight 
+         0.202          0.117          0.104          0.052          0.013 
+       Coaster           Park           City          State  Census.Region 
+         0.000          0.000          0.000          0.000          0.000 
+   Year.Opened       AgeGroup          Scale           Type         Design 
+         0.000          0.000          0.000          0.000          0.000 
+    Inversions Num.Inversions           Make 
+         0.000          0.000          0.000 </code></pre>
+</div>
+</div>
+<p>Checking out the output, we can see that the <code>Drop</code>, <code>TopSpeed</code>, <code>Duration</code>, and <code>Length</code> variables have the greatest share of missing values. Respectively, they have missingness 20%, %12, %10, and %5.</p>
+<section id="exploring-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-categorical-variables">Exploring Categorical Variables:</h2>
+<section id="contingency-tables-with-table" class="level3">
+<h3 class="anchored" data-anchor-id="contingency-tables-with-table">Contingency Tables with <code>table()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>AgeGroup)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1:Older 2:Recent 3:Newest 
+      69      190      376 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>AgeGroup, rcs<span class="sc">$</span>Scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Extreme Family Kiddie Thrill
+  1:Older       17     13      5     34
+  2:Recent     105     40      9     36
+  3:Newest     147    125     14     90</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interpreting this one Vvv</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>AgeGroup, rcs<span class="sc">$</span>Scale, rcs<span class="sc">$</span>Type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = Steel
+
+          
+           Extreme Family Kiddie Thrill
+  1:Older        8      6      4     18
+  2:Recent      82     37      9     27
+  3:Newest     126    120     14     79
+
+, ,  = Wood
+
+          
+           Extreme Family Kiddie Thrill
+  1:Older        9      7      1     16
+  2:Recent      23      3      0      9
+  3:Newest      21      5      0     11</code></pre>
+</div>
+</div>
+<p>The value “16” in the second level of the two way table implies that there are 16 older wooden thrill rides in the dataset.</p>
+</section>
+<section id="conditional-tables" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-tables">Conditional Tables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># way one - subsetting the data</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>wood_rcs <span class="ot">&lt;-</span> <span class="fu">filter</span>(rcs, Type <span class="sc">==</span> <span class="st">"Wood"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wood_rcs<span class="sc">$</span>AgeGroup, wood_rcs<span class="sc">$</span>Scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Extreme Family Kiddie Thrill
+  1:Older        9      7      1     16
+  2:Recent      23      3      0      9
+  3:Newest      21      5      0     11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># way two - subsetting a three way table</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>AgeGroup, rcs<span class="sc">$</span>Scale, rcs<span class="sc">$</span>Type)[,,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           Extreme Family Kiddie Thrill
+  1:Older        9      7      1     16
+  2:Recent      23      3      0      9
+  3:Newest      21      5      0     11</code></pre>
+</div>
+</div>
+</section>
+<section id="contingency-tables-with-group_by-and-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="contingency-tables-with-group_by-and-summarize">Contingency Tables with <code>group_by()</code> and <code>summarize()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dplyr_table <span class="ot">&lt;-</span> rcs <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span>(AgeGroup, Scale, Type) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">group_by</span>(Type, AgeGroup, Scale) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Scale, <span class="at">values_from =</span> count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Type', 'AgeGroup'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dplyr_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+# Groups:   Type, AgeGroup [6]
+  Type  AgeGroup Extreme Family Kiddie Thrill
+  &lt;fct&gt; &lt;fct&gt;      &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
+1 Steel 1:Older        8      6      4     18
+2 Steel 2:Recent      82     37      9     27
+3 Steel 3:Newest     126    120     14     79
+4 Wood  1:Older        9      7      1     16
+5 Wood  2:Recent      23      3     NA      9
+6 Wood  3:Newest      21      5     NA     11</code></pre>
+</div>
+</div>
+</section>
+<section id="stacked-and-side-by-side-bar-graphs" class="level3">
+<h3 class="anchored" data-anchor-id="stacked-and-side-by-side-bar-graphs">Stacked and Side-by-side Bar Graphs</h3>
+<p>Stacked plots are the default option, so we just use <code>geom_bar()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>stacked_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs, <span class="fu">aes</span>(<span class="at">x =</span> Scale, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Count By Roller Coaster Scale"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">subtitle =</span> <span class="st">"Stacked Bars"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">theme_minimal</span>()</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>stacked_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To get the bars to dodge, we just have to specify the <code>position</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>sbs_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs, <span class="fu">aes</span>(<span class="at">x =</span> Scale, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Count By Roller Coaster Scale"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">subtitle =</span> <span class="st">"Side-by-side Bars"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">theme_minimal</span>()</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>sbs_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exploring-numeric-variables" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-numeric-variables">Exploring Numeric Variables</h2>
+<section id="center-spread-for-two-variables" class="level3">
+<h3 class="anchored" data-anchor-id="center-spread-for-two-variables">Center + Spread for two variables</h3>
+<p>Now, we’re looking at the mean and standard deviation for <code>TopSpeed</code> and <code>MaxHeight</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cntr_sprd_tbl <span class="ot">&lt;-</span> rcs <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">select</span>(TopSpeed, MaxHeight) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> <span class="co"># drop missing due to high missingness for TopSpeed</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>cntr_sprd_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  TopSpeed_mean TopSpeed_sd MaxHeight_mean MaxHeight_sd
+          &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+1          42.4        19.4           84.3         61.3</code></pre>
+</div>
+</div>
+<p>Now subset to only include steel coasters:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cntr_sprd_tbl_steel <span class="ot">&lt;-</span> rcs <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">filter</span>(Type <span class="sc">==</span> <span class="st">"Steel"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">select</span>(TopSpeed, MaxHeight) <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> <span class="co"># drop missing due to high missingness for TopSpeed</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>cntr_sprd_tbl_steel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  TopSpeed_mean TopSpeed_sd MaxHeight_mean MaxHeight_sd
+          &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+1          40.8        20.6           84.3         66.3</code></pre>
+</div>
+</div>
+</section>
+<section id="center-spread-for-two-variables-grouping" class="level3">
+<h3 class="anchored" data-anchor-id="center-spread-for-two-variables-grouping">Center + Spread for two variables + Grouping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cntr_sprd_1grp <span class="ot">&lt;-</span> rcs <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">select</span>(Type, TopSpeed, MaxHeight) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(Type) <span class="sc">|&gt;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> <span class="co"># drop missing due to high missingness for TopSpeed</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>cntr_sprd_1grp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  Type  TopSpeed_mean TopSpeed_sd MaxHeight_mean MaxHeight_sd
+  &lt;fct&gt;         &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+1 Steel          40.8        20.6           84.3         66.3
+2 Wood           49.3        10.6           84.2         30.8</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>cntr_sprd_2grp <span class="ot">&lt;-</span> rcs <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">select</span>(Type, Scale, TopSpeed, MaxHeight) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(Type, Scale) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> <span class="co"># drop missing due to high missingness for TopSpeed</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Type'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cntr_sprd_2grp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 6
+# Groups:   Type [2]
+  Type  Scale   TopSpeed_mean TopSpeed_sd MaxHeight_mean MaxHeight_sd
+  &lt;fct&gt; &lt;fct&gt;           &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+1 Steel Extreme          57.3       14.3           133.          62.9
+2 Steel Family           20.9       10.7            30.9         25.6
+3 Steel Kiddie           10.3        8.77           15.8         25.1
+4 Steel Thrill           34.3        8.63           55.9         22.6
+5 Wood  Extreme          55.4        6.56          103.          26.8
+6 Wood  Family           32.6        9.61           45           20.5
+7 Wood  Kiddie           50         NA              60           NA  
+8 Wood  Thrill           45.9        8.34           69.8         15.2</code></pre>
+</div>
+</div>
+<p>As we saw previously, there isn’t enough data to estimate the height and speed of the wooden kiddie coasters.</p>
+</section>
+<section id="correlation-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>rcs_numeric <span class="ot">&lt;-</span> <span class="fu">select</span>(rcs, <span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">drop_na</span>()</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(rcs_numeric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Year.Opened   TopSpeed MaxHeight      Drop      Length  Duration
+Year.Opened     1.00000000 0.07523024 0.1744486 0.1488023 -0.05230856 0.0191047
+TopSpeed        0.07523024 1.00000000 0.8995804 0.9106544  0.72958067 0.3396941
+MaxHeight       0.17444865 0.89958035 1.0000000 0.9588304  0.60634255 0.2666018
+Drop            0.14880229 0.91065440 0.9588304 1.0000000  0.64206458 0.2665382
+Length         -0.05230856 0.72958067 0.6063425 0.6420646  1.00000000 0.5069320
+Duration        0.01910470 0.33969411 0.2666018 0.2665382  0.50693203 1.0000000
+Num.Inversions  0.16157407 0.33770901 0.3102168 0.2957917  0.19466332 0.1094986
+               Num.Inversions
+Year.Opened         0.1615741
+TopSpeed            0.3377090
+MaxHeight           0.3102168
+Drop                0.2957917
+Length              0.1946633
+Duration            0.1094986
+Num.Inversions      1.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="histogram" class="level3">
+<h3 class="anchored" data-anchor-id="histogram">Histogram</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>top_spd_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, TopSpeed) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed by Ride Type"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">"Top Speed (MpH)"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>max_hgt_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, MaxHeight) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Maximum Height by Ride Type"</span>,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">"Height (ft.)"</span>,</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>top_spd_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>max_hgt_hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="density-plots" class="level3">
+<h3 class="anchored" data-anchor-id="density-plots">Density Plots</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>top_spd_density <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, TopSpeed) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Top Speed by Ride Type"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">"Top Speed (MpH)"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>max_hgt_density <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, MaxHeight) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Maximum Height by Ride Type"</span>,</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">"Height (ft.)"</span>,</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>top_spd_density</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>max_hgt_density</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="box-plots" class="level3">
+<h3 class="anchored" data-anchor-id="box-plots">Box Plots</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>top_spd_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, TopSpeed) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> TopSpeed, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Top Speed by Ride Type"</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">"Top Speed (MpH)"</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>max_hgt_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">select</span>(Type, MaxHeight) <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>               <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Maximum Height by Ride Type"</span>,</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">"Height (ft.)"</span>,</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>top_spd_box</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>max_hgt_box</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="scatterplots" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplots">Scatterplots</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">y =</span> TopSpeed, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed by Max Height"</span>,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">x =</span> <span class="st">"Max Height (Feet)"</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="st">"Top Speed (MPH)"</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">theme_minimal</span>()</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="faceting" class="level3">
+<h3 class="anchored" data-anchor-id="faceting">Faceting:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt_1fct <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">y =</span> TopSpeed)) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed by Max Height"</span>,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">x =</span> <span class="st">"Max Height (Feet)"</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">y =</span> <span class="st">"Top Speed (MPH)"</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">facet_wrap</span>(<span class="sc">~</span>Type, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">theme_minimal</span>()</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt_1fct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt_2fct <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rcs <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span> MaxHeight, <span class="at">y =</span> TopSpeed)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Speed by Max Height"</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">x =</span> <span class="st">"Max Height (Feet)"</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">y =</span> <span class="st">"Top Speed (MPH)"</span>) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(Type, Scale)) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">theme_minimal</span>()</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>topspd_maxhgt_2fct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Chris_version_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
