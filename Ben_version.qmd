@@ -4,8 +4,6 @@ format: html
 editor_options: 
   chunk_output_type: console
 ---
-Your API key is: 0009f78a3db94bc0b36a3a84d1cef3a7
-
 
 ## Ben's work goes here
 
