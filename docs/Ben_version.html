@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>ST 558 HW 4 - Ben’s version</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -19,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -35,10 +73,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -100,10 +138,401 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Your API key is: 0009f78a3db94bc0b36a3a84d1cef3a7</p>
 <section id="bens-work-goes-here" class="level2">
 <h2 class="anchored" data-anchor-id="bens-work-goes-here">Ben’s work goes here</h2>
+</section>
+<section id="task-1---querying-an-api-and-a-tidy-style-function" class="level1">
+<h1>Task 1 - Querying an API and a Tidy-Style Function</h1>
+<p>Return information on recent Apple news</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>API_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://newsapi.org/v2/everything?q=apple&amp;from=2026-06-10&amp;to=2026-06-10&amp;sortBy=popularity&amp;apiKey=0009f78a3db94bc0b36a3a84d1cef3a7"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(API_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 10
+ $ url        : chr "https://newsapi.org/v2/everything?q=apple&amp;from=2026-06-10&amp;to=2026-06-10&amp;sortBy=popularity&amp;apiKey=0009f78a3db94b"| __truncated__
+ $ status_code: int 200
+ $ headers    :List of 14
+  ..$ date             : chr "Fri, 12 Jun 2026 15:08:44 GMT"
+  ..$ content-type     : chr "application/json; charset=utf-8"
+  ..$ cache-control    : chr "no-cache"
+  ..$ pragma           : chr "no-cache"
+  ..$ expires          : chr "-1"
+  ..$ x-cached-result  : chr "true"
+  ..$ x-cache-remaining: chr "99"
+  ..$ x-cache-expires  : chr "Fri, 12 Jun 2026 15:12:49 GMT"
+  ..$ cf-cache-status  : chr "DYNAMIC"
+  ..$ nel              : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+  ..$ report-to        : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IZ2"| __truncated__
+  ..$ content-encoding : chr "gzip"
+  ..$ server           : chr "cloudflare"
+  ..$ cf-ray           : chr "a0a9c5c9cad20580-IAD"
+  ..- attr(*, "class")= chr [1:2] "insensitive" "list"
+ $ all_headers:List of 1
+  ..$ :List of 3
+  .. ..$ status : int 200
+  .. ..$ version: chr "HTTP/2"
+  .. ..$ headers:List of 14
+  .. .. ..$ date             : chr "Fri, 12 Jun 2026 15:08:44 GMT"
+  .. .. ..$ content-type     : chr "application/json; charset=utf-8"
+  .. .. ..$ cache-control    : chr "no-cache"
+  .. .. ..$ pragma           : chr "no-cache"
+  .. .. ..$ expires          : chr "-1"
+  .. .. ..$ x-cached-result  : chr "true"
+  .. .. ..$ x-cache-remaining: chr "99"
+  .. .. ..$ x-cache-expires  : chr "Fri, 12 Jun 2026 15:12:49 GMT"
+  .. .. ..$ cf-cache-status  : chr "DYNAMIC"
+  .. .. ..$ nel              : chr "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+  .. .. ..$ report-to        : chr "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IZ2"| __truncated__
+  .. .. ..$ content-encoding : chr "gzip"
+  .. .. ..$ server           : chr "cloudflare"
+  .. .. ..$ cf-ray           : chr "a0a9c5c9cad20580-IAD"
+  .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
+ $ cookies    :'data.frame':    0 obs. of  7 variables:
+  ..$ domain    : logi(0) 
+  ..$ flag      : logi(0) 
+  ..$ path      : logi(0) 
+  ..$ secure    : logi(0) 
+  ..$ expiration: 'POSIXct' num(0) 
+  ..$ name      : logi(0) 
+  ..$ value     : logi(0) 
+ $ content    : raw [1:88809] 7b 22 73 74 ...
+ $ date       : POSIXct[1:1], format: "2026-06-12 15:08:44"
+ $ times      : Named num [1:6] 0 0.003 0.0311 0.0763 0.144 ...
+  ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
+ $ request    :List of 7
+  ..$ method    : chr "GET"
+  ..$ url       : chr "https://newsapi.org/v2/everything?q=apple&amp;from=2026-06-10&amp;to=2026-06-10&amp;sortBy=popularity&amp;apiKey=0009f78a3db94b"| __truncated__
+  ..$ headers   : Named chr "application/json, text/xml, application/xml, */*"
+  .. ..- attr(*, "names")= chr "Accept"
+  ..$ fields    : NULL
+  ..$ options   :List of 2
+  .. ..$ useragent: chr "libcurl/8.14.1 r-curl/7.1.0 httr/1.4.8"
+  .. ..$ httpget  : logi TRUE
+  ..$ auth_token: NULL
+  ..$ output    : list()
+  .. ..- attr(*, "class")= chr [1:2] "write_memory" "write_function"
+  ..- attr(*, "class")= chr "request"
+ $ handle     :Class 'curl_handle' &lt;pointer: 0xa96e78300&gt; 
+ - attr(*, "class")= chr "response"</code></pre>
+</div>
+</div>
+<p>Find the article information</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'jsonlite'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    flatten</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parse the url to find the content section</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(API_data<span class="sc">$</span>content))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(parsed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "status"       "totalResults" "articles"    </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make it a tibble</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>articles <span class="ot">&lt;-</span> parsed<span class="sc">$</span>articles <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as_tibble</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>articles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 99 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 the-verge The … Jenni… Appl… Apple and … http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 2 the-verge The … Sheen… The … Apple’s up… http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 3 the-verge The … Terre… Deez… Deezer wil… http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 4 the-verge The … Jay P… Appl… Apple's ne… http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 5 the-verge The … Andre… Boox… Following … http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 6 &lt;NA&gt;      Gizm… Kyle … The … The macOS … http… https://g… 2026-06-10… "If yo…
+ 7 &lt;NA&gt;      Gizm… Chery… Doom… The island… http… https://g… 2026-06-10… "Were …
+ 8 &lt;NA&gt;      Gizm… Germa… ‘Pro… Ryan Gosli… http… https://g… 2026-06-10… "A mon…
+ 9 &lt;NA&gt;      Andr… brady… Why … You don't … http… https://c… 2026-06-10… "I hav…
+10 &lt;NA&gt;      Andr… chris… Sams… The Samsun… http… https://c… 2026-06-10… "If yo…
+# ℹ 89 more rows</code></pre>
+</div>
+</div>
+<p>Build a function to do this for us</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>news_search <span class="ot">&lt;-</span> <span class="cf">function</span>(search, start_date, api_key) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get url</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="at">url =</span> <span class="st">"https://newsapi.org/v2/everything"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">query =</span> <span class="fu">list</span>(<span class="at">q =</span> search,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">from =</span> start_date,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">language =</span> <span class="st">"en"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">pageSize =</span> <span class="dv">50</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">apiKey =</span> api_key))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># find article information</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  parsed <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(response<span class="sc">$</span>content))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make it a tibble</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  articles <span class="ot">&lt;-</span> parsed<span class="sc">$</span>articles <span class="sc">|&gt;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>()</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(articles)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s test our function</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Given example</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">news_search</span>(<span class="st">"Iran"</span>, <span class="dv">2026-05-02</span>, <span class="st">"0009f78a3db94bc0b36a3a84d1cef3a7"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 49 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran laun… http… https://i… 2026-06-08… "At le…
+ 2 wired     Wired Katie… The … "Jason Rez… http… https://m… 2026-05-26… "What …
+ 3 &lt;NA&gt;      BBC … &lt;NA&gt;   Gree… "The Metro… http… https://i… 2026-05-29… "\"We …
+ 4 &lt;NA&gt;      BBC … &lt;NA&gt;   Bowe… "Under pre… http… https://i… 2026-06-01… "It ha…
+ 5 &lt;NA&gt;      BBC … &lt;NA&gt;   Sail… "The uncer… http… https://i… 2026-06-02… "Among…
+ 6 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Iran said… http… https://i… 2026-06-08… "Iran …
+ 7 &lt;NA&gt;      BBC … &lt;NA&gt;   US l… "US Centra… http… https://i… 2026-06-10… "The i…
+ 8 &lt;NA&gt;      BBC … &lt;NA&gt;   Trum… "The reque… http… https://i… 2026-05-31… "The l…
+ 9 &lt;NA&gt;      BBC … &lt;NA&gt;   Iran… "Earlier I… http… https://i… 2026-06-01… "The I…
+10 &lt;NA&gt;      BBC … &lt;NA&gt;   Son … "Craig and… http… https://i… 2026-06-07… "On hi…
+# ℹ 39 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Top business headlines</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">news_search</span>(<span class="st">"business"</span>, <span class="dv">2026-06-11</span>, <span class="st">"0009f78a3db94bc0b36a3a84d1cef3a7"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 37 × 8
+   source$id $name author title description url   urlToImage publishedAt content
+   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;  
+ 1 the-verge The … Tom W… Xbox… "The RAMag… http… https://p… 2026-06-10… "&lt;ul&gt;&lt;…
+ 2 wired     Wired Jorda… What… "Discover … http… https://m… 2026-05-21… "Photo…
+ 3 &lt;NA&gt;      BBC … &lt;NA&gt;   Faci… "In conver… http… https://i… 2026-06-11… "In so…
+ 4 &lt;NA&gt;      Gizm… Bruce… Andr… "The forme… http… https://g… 2026-06-02… "So, w…
+ 5 the-verge The … Andre… Phil… "Its name … http… https://p… 2026-05-21… "&lt;ul&gt;&lt;…
+ 6 the-verge The … Tom W… Micr… "Yusuf Meh… http… https://p… 2026-05-22… "&lt;ul&gt;&lt;…
+ 7 the-verge The … Andre… Volv… "Volvo onc… http… https://p… 2026-05-20… "&lt;ul&gt;&lt;…
+ 8 the-verge The … Stevi… Hond… "Honda rev… http… https://p… 2026-05-14… "&lt;ul&gt;&lt;…
+ 9 the-verge The … Janko… Is A… "This is L… http… https://p… 2026-06-11… "&lt;ul&gt;&lt;…
+10 business… Busi… Alexa… My f… "My dad in… http… https://i… 2026-06-06… "The a…
+# ℹ 27 more rows</code></pre>
+</div>
+</div>
+<p>Works as expected</p>
+</section>
+<section id="task-2---summarizing-roller-coaster-data" class="level1">
+<h1>Task 2 - Summarizing Roller Coaster Data</h1>
+<p>Lets read in our data</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rcs_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove some columns</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>rcs <span class="ot">&lt;-</span> rcs_raw <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Boundary, Latitude, Longitude))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># look at types</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(rcs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   635 obs. of  18 variables:
+ $ Coaster         : chr  "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
+ $ Park            : chr  "Oaks Amusement Park" "Kings Island" "Carowinds" "Silverwood Theme Park" ...
+ $ City            : chr  "Portland" "Mason" "Charlotte" "Athol" ...
+ $ State           : chr  "Oregon" "Ohio" "North Carolina" "Idaho" ...
+ $ Census.Region   : chr  "West" "Midwest" "South" "West" ...
+ $ Year.Opened     : int  2018 1991 1999 2008 2010 1997 1998 1981 2008 1991 ...
+ $ AgeGroup        : chr  "3:Newest" "2:Recent" "2:Recent" "3:Newest" ...
+ $ TopSpeed        : num  45 35 62 65.6 22 67 35 66 48 50 ...
+ $ MaxHeight       : num  72 63 113 192 25 ...
+ $ Scale           : chr  "Extreme" "Thrill" "Extreme" "Extreme" ...
+ $ Type            : chr  "Steel" "Steel" "Steel" "Steel" ...
+ $ Design          : chr  "Sit Down" "Sit Down" "Inverted" "Inverted" ...
+ $ Drop            : num  70 47 110 177 22.5 170 20 147 80 144 ...
+ $ Length          : num  1050 2963 2956 1204 628 ...
+ $ Duration        : int  66 140 167 92 47 190 100 143 110 110 ...
+ $ Inversions.     : chr  "Yes" "No" "Yes" "Yes" ...
+ $ X..of.Inversions: int  3 0 6 3 0 6 0 0 0 4 ...
+ $ Make            : chr  "Gerstlauer Amusement Rides GmbH" "Arrow Dynamics" "Bolliger &amp; Mabillard" "Vekoma" ...</code></pre>
+</div>
+</div>
+<p>Lets clean our data</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rcs <span class="ot">&lt;-</span> rcs_raw <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Boundary, Latitude, Longitude)) <span class="sc">|&gt;</span> <span class="co">#remove some columns</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">rename</span>(<span class="at">Inversions =</span><span class="st">`</span><span class="at">Inversions.</span><span class="st">`</span>, <span class="co">#rename some columns</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">Inversions.Count =</span> <span class="st">`</span><span class="at">X..of.Inversions</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Census.Region, AgeGroup, Scale, Type, Design, Inversions), </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                          <span class="sc">~</span> <span class="fu">as.factor</span>(.))) <span class="sc">|&gt;</span> <span class="co">#turn some variables into factors</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">as_tibble</span>()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(rcs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [635 × 18] (S3: tbl_df/tbl/data.frame)
+ $ Coaster         : chr [1:635] "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
+ $ Park            : chr [1:635] "Oaks Amusement Park" "Kings Island" "Carowinds" "Silverwood Theme Park" ...
+ $ City            : chr [1:635] "Portland" "Mason" "Charlotte" "Athol" ...
+ $ State           : chr [1:635] "Oregon" "Ohio" "North Carolina" "Idaho" ...
+ $ Census.Region   : Factor w/ 4 levels "Midwest","Northeast",..: 4 1 3 4 3 3 2 1 1 3 ...
+ $ Year.Opened     : int [1:635] 2018 1991 1999 2008 2010 1997 1998 1981 2008 1991 ...
+ $ AgeGroup        : Factor w/ 3 levels "1:Older","2:Recent",..: 3 2 2 3 3 2 2 2 3 2 ...
+ $ TopSpeed        : num [1:635] 45 35 62 65.6 22 67 35 66 48 50 ...
+ $ MaxHeight       : num [1:635] 72 63 113 192 25 ...
+ $ Scale           : Factor w/ 4 levels "Extreme","Family",..: 1 4 1 1 2 1 4 1 4 1 ...
+ $ Type            : Factor w/ 2 levels "Steel","Wood": 1 1 1 1 1 1 1 2 2 1 ...
+ $ Design          : Factor w/ 7 levels "Bobsled","Flying",..: 4 4 3 3 4 3 1 4 4 4 ...
+ $ Drop            : num [1:635] 70 47 110 177 22.5 170 20 147 80 144 ...
+ $ Length          : num [1:635] 1050 2963 2956 1204 628 ...
+ $ Duration        : int [1:635] 66 140 167 92 47 190 100 143 110 110 ...
+ $ Inversions      : Factor w/ 2 levels "No","Yes": 2 1 2 2 1 2 1 1 1 2 ...
+ $ Inversions.Count: int [1:635] 3 0 6 3 0 6 0 0 0 4 ...
+ $ Make            : chr [1:635] "Gerstlauer Amusement Rides GmbH" "Arrow Dynamics" "Bolliger &amp; Mabillard" "Vekoma" ...</code></pre>
+</div>
+</div>
+<section id="basic-eda" class="level2">
+<h2 class="anchored" data-anchor-id="basic-eda">Basic EDA</h2>
+<p>Lets check the <code>summary</code> of the data to make sure everything looks okay</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rcs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Coaster           Park            City           State    
+ Length   :635   Length   :635   Length   :635   Length   :635  
+ N.unique :482   N.unique :197   N.unique :171   N.unique : 40  
+ N.blank  :  0   N.blank  :  0   N.blank  :  0   N.blank  :  0  
+ Min.nchar:  2   Min.nchar:  6   Min.nchar:  3   Min.nchar:  4  
+ Max.nchar: 46   Max.nchar: 47   Max.nchar: 20   Max.nchar: 14  
+                                                                
+                                                                
+   Census.Region  Year.Opened       AgeGroup      TopSpeed        MaxHeight    
+ Midwest  :134   Min.   :1920   1:Older : 69   Min.   :  6.00   Min.   :  5.0  
+ Northeast:156   1st Qu.:1995   2:Recent:190   1st Qu.: 28.50   1st Qu.: 28.0  
+ South    :223   Median :2002   3:Newest:376   Median : 45.00   Median : 64.3  
+ West     :122   Mean   :1999                  Mean   : 42.24   Mean   : 76.8  
+                 3rd Qu.:2013                  3rd Qu.: 55.00   3rd Qu.:109.0  
+                 Max.   :2020                  Max.   :128.00   Max.   :456.0  
+                                               NAs    :74       NAs    :8      
+     Scale        Type           Design         Drop            Length    
+ Extreme:269   Steel:530   Bobsled  :  4   Min.   :  0.00   Min.   :  48  
+ Family :178   Wood :105   Flying   :  9   1st Qu.: 25.00   1st Qu.: 900  
+ Kiddie : 28               Inverted : 42   Median : 70.00   Median :1490  
+ Thrill :160               Sit Down :560   Mean   : 77.18   Mean   :1938  
+                           Stand Up :  4   3rd Qu.:108.50   3rd Qu.:2800  
+                           Suspended:  7   Max.   :418.00   Max.   :7359  
+                           Wing     :  9   NAs    :128      NAs    :33    
+    Duration   Inversions Inversions.Count        Make    
+ Min.   : 20   No :465    Min.   :0.0000   Length   :635  
+ 1st Qu.: 70   Yes:170    1st Qu.:0.0000   N.unique : 54  
+ Median :101              Median :0.0000   N.blank  : 36  
+ Mean   :106              Mean   :0.9213   Min.nchar:  0  
+ 3rd Qu.:130              3rd Qu.:1.0000   Max.nchar: 36  
+ Max.   :540              Max.   :8.0000                  
+ NAs    :66                                               </code></pre>
+</div>
+</div>
+<p>Seems like everything checks out. Lets check the counts of missing values in the data by column</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(rcs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Coaster             Park             City            State 
+               0                0                0                0 
+   Census.Region      Year.Opened         AgeGroup         TopSpeed 
+               0                0                0               74 
+       MaxHeight            Scale             Type           Design 
+               8                0                0                0 
+            Drop           Length         Duration       Inversions 
+             128               33               66                0 
+Inversions.Count             Make 
+               0                0 </code></pre>
+</div>
+</div>
+<p><code>Drop</code>, <code>TopSeed</code>, and <code>Duration</code> are the variables with the most missing values. They’re missing 128, 74, and 66 values respectively.</p>
+</section>
+<section id="categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h2>
+<p>Lets create some contingency tables using <code>table()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#one-way table</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>Scale, <span class="at">useNA =</span> <span class="st">'always'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Extreme  Family  Kiddie  Thrill    &lt;NA&gt; 
+    269     178      28     160       0 </code></pre>
+</div>
+</div>
+<p>From the table we can see there are 269 extreme roller coasters in the dataset</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#two-way table</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>Scale, rcs<span class="sc">$</span>Census.Region, <span class="at">useNA =</span> <span class="st">'always'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+          Midwest Northeast South West &lt;NA&gt;
+  Extreme      61        62    92   54    0
+  Family       32        49    68   29    0
+  Kiddie        8         7     6    7    0
+  Thrill       33        38    57   32    0
+  &lt;NA&gt;          0         0     0    0    0</code></pre>
+</div>
+</div>
+<p>From the table we can see there are 49 extreme roller coasters in the Midwest</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#three-way table</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(rcs<span class="sc">$</span>Scale, rcs<span class="sc">$</span>Census.Region, rcs<span class="sc">$</span>AgeGroup, <span class="at">useNA =</span> <span class="st">'always'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = 1:Older
+
+         
+          Midwest Northeast South West &lt;NA&gt;
+  Extreme       6         3     5    3    0
+  Family        2         7     4    0    0
+  Kiddie        1         3     0    1    0
+  Thrill        8         8     8   10    0
+  &lt;NA&gt;          0         0     0    0    0
+
+, ,  = 2:Recent
+
+         
+          Midwest Northeast South West &lt;NA&gt;
+  Extreme      21        22    38   24    0
+  Family        9        13     9    9    0
+  Kiddie        3         3     0    3    0
+  Thrill       12        10    10    4    0
+  &lt;NA&gt;          0         0     0    0    0
+
+, ,  = 3:Newest
+
+         
+          Midwest Northeast South West &lt;NA&gt;
+  Extreme      34        37    49   27    0
+  Family       21        29    55   20    0
+  Kiddie        4         1     6    3    0
+  Thrill       13        20    39   18    0
+  &lt;NA&gt;          0         0     0    0    0
+
+, ,  = NA
+
+         
+          Midwest Northeast South West &lt;NA&gt;
+  Extreme       0         0     0    0    0
+  Family        0         0     0    0    0
+  Kiddie        0         0     0    0    0
+  Thrill        0         0     0    0    0
+  &lt;NA&gt;          0         0     0    0    0</code></pre>
+</div>
+</div>
+<p>From the table we can see there are 7 extreme roller coasters in the Midwest that are considered to be ‘older’</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -158,13 +587,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

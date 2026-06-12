@@ -1,6 +1,390 @@
 ---
 title: "ST 558 HW 4 - Ben's version"
 format: html
+editor_options: 
+  chunk_output_type: console
 ---
+Your API key is: 0009f78a3db94bc0b36a3a84d1cef3a7
+
 
 ## Ben's work goes here
+
+# Task 1 - Querying an API and a Tidy-Style Function
+
+Return information on recent Apple news 
+
+```{r}
+library(httr)
+library(tidyverse)
+API_data <- GET("https://newsapi.org/v2/everything?q=apple&from=2026-06-10&to=2026-06-10&sortBy=popularity&apiKey=0009f78a3db94bc0b36a3a84d1cef3a7")
+str(API_data)
+```
+
+Find the article information
+
+```{r}
+library(jsonlite)
+
+# parse the url to find the content section
+parsed <- fromJSON(rawToChar(API_data$content))
+names(parsed)
+
+#make it a tibble
+articles <- parsed$articles |>
+            as_tibble()
+articles
+```
+Build a function to do this for us
+
+```{r}
+news_search <- function(search, start_date, api_key) {
+  # get url
+  response <- GET(url = "https://newsapi.org/v2/everything",
+                  query = list(q = search,
+                               from = start_date,
+                               language = "en",
+                               pageSize = 50,
+                               apiKey = api_key))
+  
+  # find article information
+  parsed <- fromJSON(rawToChar(response$content))
+  
+  # make it a tibble
+  articles <- parsed$articles |>
+    as_tibble()
+
+  return(articles)
+}
+```
+
+Let's test our function
+
+```{r}
+# 1. Given example
+news_search("Iran", 2026-05-02, "0009f78a3db94bc0b36a3a84d1cef3a7")
+
+# 2. Top business headlines
+news_search("business", 2026-06-11, "0009f78a3db94bc0b36a3a84d1cef3a7")
+```
+
+Works as expected
+
+
+# Task 2 - Summarizing Roller Coaster Data
+
+Lets read in our data
+
+```{r}
+rcs_raw <- read.csv("https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv")
+
+# remove some columns
+rcs <- rcs_raw |>
+  select(-c(Boundary, Latitude, Longitude))
+
+# look at types
+str(rcs)
+```
+
+Lets clean our data
+
+```{r}
+rcs <- rcs_raw |>
+       select(-c(Boundary, Latitude, Longitude)) |> #remove some columns
+       rename(Inversions =`Inversions.`, #rename some columns
+              Inversions.Count = `X..of.Inversions`) |>
+       mutate(across(c(Census.Region, AgeGroup, Scale, Type, Design, Inversions), 
+                          ~ as.factor(.))) |> #turn some variables into factors
+       as_tibble()
+
+str(rcs)
+```
+
+## Basic EDA
+
+Lets check the `summary` of the data to make sure everything looks okay
+
+```{r}
+summary(rcs)
+```
+
+Seems like everything checks out. Lets check the counts of missing values in the data by column
+
+```{r}
+colSums(is.na(rcs))
+```
+
+`Drop`, `TopSeed`, and `Duration` are the variables with the most missing values. They're missing 128, 74, and 66 values respectively. 
+
+
+## Categorical Variables
+
+Lets create some contingency tables using `table()`
+
+```{r}
+#one-way table
+table(rcs$Scale, useNA = 'always')
+```
+
+From the table we can see there are `r table(rcs$Scale, useNA = 'always')[1]` extreme roller coasters in the dataset 
+
+```{r}
+#two-way table
+table(rcs$Scale, rcs$Census.Region, useNA = 'always')
+```
+
+From the table we can see there are `r table(rcs$Scale, rcs$Census.Region, useNA = 'always')[1,1]` extreme roller coasters in the Midwest 
+
+```{r}
+#three-way table
+table(rcs$Scale, rcs$Census.Region, rcs$AgeGroup, useNA = 'always')
+```
+
+From the table we can see there are `r table(rcs$Scale, rcs$Census.Region, rcs$AgeGroup, useNA = 'always')[1, 1, "1:Older"]` extreme roller coasters in the Midwest that are considered to be 'older'
+
+
+Now lets create some conditional two way tables. We'll do this in two different ways:
+
+- Once, by subsetting the data with `filter()` and then creating the two-way table
+
+- Once, by creating a three-way table and subsetting it
+
+```{r}
+#subsetting with filter()
+new_rcs <- rcs |>
+  filter(AgeGroup == "3:Newest")
+table(new_rcs$Design, new_rcs$Scale)
+
+#subsetting a 3-way table
+table(rcs$Design, rcs$Scale, rcs$AgeGroup, useNA = 'always')[,,"2:Recent"]
+```
+
+Lets use `group_by`and `summarize()` to create a two-way contingency table, then use `pivot_wider()` to mimic the output of `table()`
+
+```{r}
+rcs |>
+  drop_na(Design, Type) |>
+  group_by(Design, Type) |>
+  summarize(count = n()) |>
+  pivot_wider(names_from = Design, values_from = count)
+```
+
+
+Now we'll create some bar charts using `ggplot()`
+
+```{r}
+#stacked bar chart
+ggplot(data = rcs |> drop_na(Design, Census.Region), aes(x = Census.Region, fill = Design)) + 
+  geom_bar(position = "stack") + # set position to stack for stacked bar plot
+  labs(title = 'Count of Roller Coaster Designs in Different Regions',
+       x = 'Census Region',
+       y = 'Count') +
+  theme_minimal()
+
+#side-by-side bar chart
+ggplot(data = rcs |> drop_na(Design, Census.Region), aes(x = Census.Region, fill = Design)) + 
+  geom_bar(position = "dodge") + # set position to dodge for side-by-side plot
+  labs(title = 'Count of Roller Coaster Designs in Different Regions',
+       x = 'Census Region',
+       y = 'Count') +
+  theme_minimal()
+```
+
+Seems like sit-down roller coasters are by far the most popular
+
+## Numeric variables (and across groups)
+
+Lets take a closer look at two of our numeric variables. I'll choose `TopSpeed` and `MaxHeight`.
+
+First we'll examine the center and spread of these variables
+
+```{r}
+mean(rcs$TopSpeed, na.rm = TRUE)  # make sure to remove the NA values
+sd(rcs$TopSpeed, na.rm = TRUE)
+
+mean(rcs$MaxHeight, na.rm = TRUE)
+sd(rcs$MaxHeight, na.rm = TRUE)
+```
+
+Now subset the data to include only inverted `Design` types. Then find their mean and median again
+
+```{r}
+inverted_design_rcs <- rcs |>
+  filter(Design == "Inverted")
+
+mean(inverted_design_rcs$TopSpeed, na.rm = TRUE)
+sd(inverted_design_rcs$TopSpeed, na.rm = TRUE)
+
+mean(inverted_design_rcs$MaxHeight, na.rm = TRUE)
+sd(inverted_design_rcs$MaxHeight, na.rm = TRUE)
+```
+
+Seems like the inverted roller coasters have a higher mean `TopSpeed` and `MaxHeight`
+
+Lets find measures of center and spread across a single grouping variable for two of these variables
+
+```{r}
+grouped1_rcs <- rcs |>
+  select(Type, TopSpeed, MaxHeight) |>
+  group_by(Type) |> # group by one variable
+  drop_na() |> 
+  summarize(across(everything(), # find the mean and sd across all variables
+                   list(mean = mean, sd = sd)))
+
+grouped1_rcs
+```
+
+Seems like wooden roller coasters have a higher `TopSpeed` on average compared to steel roller coasters. Their average `MaxHeight` is very similar, although the wooden coaster's `MaxHeight` is much less variable then the steel coaster's `MaxHeight`.
+
+Now lets find measures of center and spread across two grouping variables for two of these variables/
+
+```{r}
+grouped2_rcs <- rcs |>
+  select(Type, Design, TopSpeed, MaxHeight) |>
+  group_by(Type, Design) |> # group by two variables
+  drop_na() |> 
+  summarize(across(everything(), 
+                   list(mean = mean, sd = sd)))
+
+grouped2_rcs
+```
+
+The steel type, wing design roller coasters seem like they're pretty scary. 
+
+Now lets create a correlation matrix between all the numeric variables.
+
+```{r}
+rcs_numeric <- rcs |>
+  select(where(is.numeric)) |> # select only the numeric variables from the rcs dataset
+  drop_na() # drop missing values
+
+cor(rcs_numeric)
+```
+
+The highest correlation I see is between `Drop` and `MaxHeight`. The lowest I see is between `Duration` and `Year.Opened`.
+
+Lets create some graphs  that can compare the distributions across the groups on the same plot.
+
+```{r}
+# Histograms
+ggplot(rcs |> select(Scale, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Scale)) +
+  geom_histogram() +
+  labs(title = "Top Speed by Ride Type",
+       x = "Top Speed (MpH)",
+       y = "Frequency") +
+  theme_bw() # Lets add a theme to our graphs
+
+ggplot(rcs |> select(Scale, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Scale)) +
+  geom_histogram() +
+  labs(title = "Max Height by Ride Type",
+       x = "Height (ft.)",
+       y = "Frequency") +
+  theme_bw()
+```
+
+
+As expected, `TopSpeed` and `MaxHeight` seem to increase along with `Scale`. Kiddie and family rides have lower `TopSpeed` and `MaxHeight`
+
+```{r}
+# Boxplots
+ggplot(rcs |> select(Scale, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Scale)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Top Speed by Scale of Ride",
+       x = "Top Speed (MpH)",
+       y = "Frequency") +
+  theme_bw()
+
+ggplot(rcs |> select(Scale, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Scale)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Max Height by Scale of Ride",
+  x = "Height (ft.)",
+  y = "Frequency") +
+  theme_bw()
+```
+
+As expected, thrill and extreme rides have a higher `TopSpeed` and `Maxheight` on average, with kiddie and family rides having lower `TopSpeed` and `Maxheight`. Another thing I noticed is how little overlap there is in the spread of each `Scale` level. The middle 50% of the data within each `Scale` level almost never overlap for both `TopSpeed` and `Maxheight`. 
+
+```{r}
+# Kernel Density Plot
+ggplot(rcs |> select(Scale, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Scale)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Distribution of Top Speed by Scale of Ride",
+       x = "Top Speed (MpH)",
+       y = "Frequency") +
+  theme_bw()
+
+ggplot(rcs |> select(Scale, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Scale)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Distribution of Max Height by Scale of Ride",
+  x = "Height (ft.)",
+  y = "Frequency") +
+  theme_bw()
+```
+
+The density plots show a clear increase in `TopSpeed` and `MaxHeight` as ride `Scale` increases. Extreme rides have the highest speeds and heights with the widest distribution, while kiddie rides have the lowest speeds and heights with the smallest distribution. Extreme rides also exhibit a long right tail, indicating a few exceptionally fast coasters.
+
+
+```{r}
+# Scatter Plots
+ggplot(rcs |> select(TopSpeed, MaxHeight, Scale) |> drop_na(), aes(x = MaxHeight, y = TopSpeed, 
+                                                                   color = Scale)) +
+  geom_point() +
+  labs(title = "Correlation between Top Speed and Max Height",
+       x = "Max Height (ft.)",
+       y = "Top Speed (MpH)") +
+  theme_bw()
+```
+
+This scatter plot tells us that `MaxHeight` increases along with `TopSpeed` with a noticably high correlation. We can also see that as `MaxHeight` and `TopSpeed` increase, ride `Scale` tends to increase as well. The frequency of extreme rides increase as `MaxHeight` and `TopSpeed` increase, while the frequency of kiddie and family rides decrease.
+
+```{r}
+ggplot(rcs |> select(Drop, Length, Type) |> drop_na(), aes(x = Drop, y = Length, 
+                                                           color = Type)) +
+  geom_point() +
+  labs(title = "Correlation between Top Speed and Max Height",
+       x = "Max Height (ft.)",
+       y = "Top Speed (MpH)") +
+  theme_bw()
+```
+
+The correlation between `Drop` and `Length` does not seem as strong. We can see that steel roller coasters are a bit more variable in `Drop`, but apart from that, there is not much this graph is telling us. 
+
+```{r}
+# Faceting the scatter plots with one categorical variable
+ggplot(rcs |> select(TopSpeed, MaxHeight, Scale) |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+  geom_point() +
+  labs(title = "Top Speed by Max Height",
+       x = "Max Height (Feet)",
+       y = "Top Speed (MPH)") +
+  facet_wrap(~Scale, nrow = 2) +
+  theme_bw()
+
+ggplot(rcs |> select(Drop, Length, Type) |> drop_na(), aes(x = Drop, y = Length)) +
+  geom_point() +
+  labs(title = "Correlation between Top Speed and Max Height",
+       x = "Max Height (ft.)",
+       y = "Top Speed (MpH)") +
+  facet_wrap(~Type, nrow = 2) +
+  theme_bw()
+```
+
+
+
+```{r}
+# Faceting the scatter plots with two categorical variables
+ggplot(rcs |> select(TopSpeed, MaxHeight, Scale, Type) |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+  geom_point() +
+  labs(title = "Top Speed by Max Height",
+       x = "Max Height (Feet)",
+       y = "Top Speed (MPH)") +
+  facet_wrap(vars(Type,Scale)) +
+  theme_bw()
+
+ggplot(rcs |> select(Drop, Length, Type, Scale) |> drop_na(), aes(x = Drop, y = Length)) +
+  geom_point() +
+  labs(title = "Correlation between Top Speed and Max Height",
+       x = "Max Height (ft.)",
+       y = "Top Speed (MpH)") +
+  facet_wrap(vars(Type,Scale)) +
+  theme_bw()
+```
+
