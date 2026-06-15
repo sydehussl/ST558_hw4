@@ -1,6 +1,341 @@
 ---
-title: "ST 558 HW 4 - Final version"
+title: "ST 558 HW 4 - Final Version"
 format: html
 ---
 
-## Final assignment goes here
+# Task 1: Querying a News API
+First, we're querying the news API:
+```{r}
+library(httr)
+library(jsonlite)
+
+# API call
+news_return <- GET("https://newsapi.org/v2/everything?q=Iran&from=2026-05-13&language=en&pageSize=50&apiKey=d41f8e9cca0f4687b4865289b712e088")
+
+str(news_return)
+```
+We've got the data, but most of this looks like metadata we aren't interested in. The articles are stored in the `content` object. We need to parse the raw data using the `jsonlite` package:
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+
+parsed <- fromJSON(rawToChar(news_return$content))
+articles <- parsed$articles |>
+            as_tibble()
+
+articles
+```
+Looks great! Now we'll write a function to query the API more easily:
+```{r}
+query_news <- function(search, start_date, api_key) {
+  # build url
+  url <- paste0("https://newsapi.org/v2/everything?q=",
+                search,
+                "&from=",
+                start_date,
+                "&language=en&pageSize=50&apiKey=",
+                api_key)
+  # call API
+  api_return <- GET(url)
+  
+  # parse return and output as tibble
+  parsed <- fromJSON(rawToChar(api_return$content))
+  articles <- parsed$articles |>
+              as_tibble()
+  return(articles)
+}
+
+# 1) original API call
+query_news("Iran", 2026-05-11, "d41f8e9cca0f4687b4865289b712e088")
+
+# 2) articles about AI from this month
+query_news("AI", 2026-06-01, "d41f8e9cca0f4687b4865289b712e088")
+```
+It works!
+
+# Task 2: Summarizing Roller Coaster Data
+Next, we're reading in data about roller coasters. Let's check out the dataset:
+```{r}
+rcs_raw <- read.csv("https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv")
+
+# remove unnecessary columns
+rcs <- rcs_raw |>
+       select(-c(Boundary, Latitude, Longitude))
+
+# look at types
+str(rcs)
+```
+Looking at these variables and their types, I think we could do some cleaning. Specifically, I see the following:
+
+- `Census.Region`, `AgeGroup`, `Scale`, `Type`, `Design`, and `Inversions.` should be factors
+- The `number of inversions` and the `inversions.` variable need to be renamed
+
+Adding to our pipeline:
+```{r}
+rcs <- rcs_raw |>
+       select(-c(Boundary, Latitude, Longitude)) |>
+       rename(Inversions =`Inversions.`,
+              Num.Inversions= `X..of.Inversions`) |>
+       mutate(across(c(Census.Region, AgeGroup, Scale, Type, Design, Inversions),
+                          ~ as.factor(.))) |>
+       as_tibble()
+
+rcs
+```
+Beautiful! Now that our data is clean, we should see if there are any missing values to note. I'm finding the proportion of missing values so that we can get a better idea of the missingness:
+```{r}
+round(colSums(is.na(rcs))/nrow(rcs), 3) |>
+  sort(decreasing = TRUE)
+```
+Checking out the output, we can see that the `Drop`, `TopSpeed`, `Duration`, and `Length` variables have the greatest share of missing values. Respectively, they have missingness 20%, %12, %10, and %5. 
+
+## Exploring Categorical Variables:
+
+### Contingency Tables with `table()`
+Let's check out the relationship between the age group and scale of rides using contingency tables:
+```{r}
+table(rcs$AgeGroup)
+```
+Most of the rides in the dataset are new or recent, with only a few old rides. Let's see if the breakdown changes if we add the ride scale to our table.
+```{r}
+table(rcs$AgeGroup, rcs$Scale)
+```
+There are very few kiddie rides in the data set. Most of the new and recent rides happen to be extreme or family. The older rides in the data set are mostly thrill rides.
+
+I wonder if the material of the ride (steel/wood) makes a difference. We can make this a three way table to investigate:
+```{r}
+table(rcs$AgeGroup, rcs$Scale, rcs$Type)
+```
+It seems that most new rides are made of steel. There are very few wooden kiddie coasters in the data set.
+
+**Interpreting a Value**: The value "1" in the "Wood" level of the three way table implies that there's one observation of an older wooden kiddie coaster in the data set.
+
+### Conditional Tables
+We can remake the previous table by filtering our data and then making a two way table:
+```{r}
+# way one - subsetting the data
+wood_rcs <- filter(rcs, Type == "Wood")
+table(wood_rcs$AgeGroup, wood_rcs$Scale)
+```
+Or by referencing the second object of the three way table:
+```{r}
+# way two - subsetting a three way table
+table(rcs$AgeGroup, rcs$Scale, rcs$Type)[,,2]
+```
+
+### Contingency Tables with `group_by()` and `summarize()`
+We can use `dplyr` functions to make another form of three way table:
+```{r}
+rcs |>
+  drop_na(Design, Type) |>
+  group_by(Design, Type) |>
+  summarize(count = n()) |>
+  pivot_wider(names_from = Design, values_from = count)
+```
+Depending on how we're plotting data, this form might be useful.
+
+### Stacked and Side-by-side Bar Graphs
+Stacked plots are the default option, so we just use `geom_bar()`
+```{r}
+library(ggplot2)
+
+stacked_bar <- ggplot(rcs, aes(x = Scale, fill = Type)) +
+               geom_bar() +
+               labs(title = "Count By Roller Coaster Scale",
+                    subtitle = "Stacked Bars",
+                    y = "Frequency") +
+               theme_minimal()
+
+stacked_bar
+```
+Again, we can see that the vast majority of roller coasters in the data set are made of steel. Interestingly, most of the wooden rides are extreme or thrilling, with relatively few being family/kid oriented.
+
+If we want the bars for `Type` to be adjacent instead of stacked, we just have to specify the `position` argument:
+```{r}
+library(ggplot2)
+
+sbs_bar <- ggplot(rcs, aes(x = Scale, fill = Type)) +
+           geom_bar(position = "dodge") +
+           labs(title = "Count By Roller Coaster Scale",
+                subtitle = "Side-by-side Bars",
+                y = "Frequency") +
+           theme_minimal()
+
+sbs_bar
+```
+I think this graph better shows the proportion of extreme/thrill wooden roller coasters. 
+
+
+## Exploring Numeric Variables
+### Center + Spread for two variables
+Now, we're looking at the mean and standard deviation for `TopSpeed` and `MaxHeight`:
+```{r}
+cntr_sprd_tbl <- rcs |>
+                 select(TopSpeed, MaxHeight) |>
+                 drop_na() |> # drop missing due to high missingness for TopSpeed
+                 summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_tbl
+```
+The average ride in our dataset has a top speed of 42 mph and a max height of 84 feet. We'd expect the steel coasters to have higher mean speed and height. We can subset to only include steel coasters:
+```{r}
+cntr_sprd_tbl_steel <- rcs |>
+                       filter(Type == "Steel") |>
+                       select(TopSpeed, MaxHeight) |>
+                       drop_na() |> # drop missing due to high missingness for TopSpeed
+                       summarize(across(everything(),
+                                        list(mean = mean, sd = sd)))
+
+cntr_sprd_tbl_steel
+```
+Interestingly, we see a slightly lower mean top speed and similar mean max height for the steel coasters in the dataset. We may attribute this to the larger number of steel family coasters lowering the average.
+
+### Center + Spread for two variables + Grouping
+```{r}
+cntr_sprd_1grp <- rcs |>
+                  select(Type, TopSpeed, MaxHeight) |>
+                  group_by(Type) |>
+                  drop_na() |> # drop missing due to high missingness for TopSpeed
+                  summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_1grp
+```
+Directly comparing the stats for each material type, we see that the variability in speed and height is greater for steel coasters. This supports our hypothesis that the family coasters drag down the average speed/height stats.
+
+Finally, we'll examine how the scale of the ride affects the average speed/height:
+```{r}
+cntr_sprd_2grp <- rcs |>
+                  select(Type, Scale, TopSpeed, MaxHeight) |>
+                  group_by(Type, Scale) |>
+                  drop_na() |> # drop missing due to high missingness for TopSpeed
+                  summarize(across(everything(),
+                                  list(mean = mean, sd = sd)))
+
+cntr_sprd_2grp
+```
+As we saw previously, there isn't enough data to estimate the height and speed of the wooden kiddie coasters. We can see that the average speed for extreme coasters is similar for both material types, but the extreme steel coasters have greater standard deviation. The Q3 top speed values for wood and steel coasters likely differ more than the means would suggest.
+
+### Correlation Matrix
+```{r}
+rcs_numeric <- select(rcs, where(is.numeric)) |>
+               drop_na()
+
+
+cor(rcs_numeric)
+```
+Next, we use the correlations above to determine the degree and shape of relationships between variables. Intuitively, the correlation is highest between the `Drop` and `MaxHeight` variables. High positive correlation also exists between the following pairs: (`TopSpeed`, `MaxHeight`), (`TopSpeed`, `Drop`), (`TopSpeed`, `Length`).
+
+There is basically no correlation between `Duration` and `Year.Opened`.
+
+### Histogram
+```{r}
+top_spd_hist <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+                geom_histogram() +
+                labs(title = "Top Speed by Ride Type",
+                     x = "Top Speed (MpH)",
+                     y = "Frequency")
+
+max_hgt_hist <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+                geom_histogram() +
+                labs(title = "Maximum Height by Ride Type",
+                     x = "Height (ft.)",
+                     y = "Frequency")
+
+
+top_spd_hist
+```
+The histogram for top speed clearly shows that wooden coasters have less variability in speed compared to steel ones. There are several peaks for steel coasters, likely suggesting that we should consider the interaction between scale and type.
+
+```{r}
+max_hgt_hist
+```
+The distribution of heights for steel coasters is very right skewed, with a long right tail indicating a small number of very tall steel roller coasters. The distribution of heights for wooden coasters is narrower and less skewed.
+
+### Density Plots
+```{r}
+top_spd_density <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+                   geom_density(alpha = 0.5) +
+                   labs(title = "Distribution of Top Speed by Ride Type",
+                        x = "Top Speed (MpH)",
+                        y = "Frequency")
+
+max_hgt_density <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+                   geom_density(alpha = 0.5) +
+                   labs(title = "Distribution of Maximum Height by Ride Type",
+                        x = "Height (ft.)",
+                        y = "Frequency")
+
+
+top_spd_density
+```
+The density plots for top speed reflect the variability in speed for steel coasters. Conversely, the tall peak and narrower tails of the wooden coaster speed distribution reflect lesser variety in coaster types. 
+
+```{r}
+max_hgt_density
+```
+Examining the height density plots, we again see the more concentrated height distribution for wooden coasters. Steel coasters have a bimodal height distribution, likely due to the inclusion of many kiddie/family themed rides. 
+
+
+### Box Plots
+```{r}
+top_spd_box <- ggplot(rcs |> select(Type, TopSpeed) |> drop_na(), aes(x = TopSpeed, fill = Type)) +
+               geom_boxplot() +
+               labs(title = "Distribution of Top Speed by Ride Type",
+                        x = "Top Speed (MpH)",
+                        y = "Frequency")
+
+max_hgt_box <- ggplot(rcs |> select(Type, MaxHeight) |> drop_na(), aes(x = MaxHeight, fill = Type)) +
+               geom_boxplot() +
+               labs(title = "Distribution of Maximum Height by Ride Type",
+                        x = "Height (ft.)",
+                        y = "Frequency")
+
+
+top_spd_box
+max_hgt_box
+```
+While boxplots also reflect the greater variability in max height and top speed for steel coasters, they also prominently display the outliers and weight of the tails (while masking multimodality). The width of Q3 and Q4 for steel coasters indicates there are many tall steel roller coasters in the data set despite the low average speed.
+
+### Scatterplots
+```{r}
+topspd_maxhgt <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed, color = Type)) +
+                 geom_point() +
+                 labs(title = "Top Speed by Max Height",
+                      x = "Max Height (Feet)",
+                      y = "Top Speed (MPH)") +
+                 theme_minimal()
+
+
+topspd_maxhgt
+```
+We can use a scatter plot to view the shape of the relationship between variables. If we wanted to model the top speed of a roller coaster as a function of it's height, it seems like we should use some third degree model to account for the cubic-shaped relationship between height and speed.
+
+
+### Faceting:
+```{r}
+topspd_maxhgt_1fct <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+                      geom_point() +
+                      labs(title = "Top Speed by Max Height",
+                               x = "Max Height (Feet)",
+                               y = "Top Speed (MPH)") +
+                      facet_wrap(~Type, nrow = 2) +
+                      theme_minimal()
+
+topspd_maxhgt_1fct
+```
+For both types of roller coasters, we can see a kink/bend around the 100 feet mark where the relationship between speed and height starts to diminish. I'd guess this is due to air resistance starting to matter around those speeds.
+
+```{r}
+topspd_maxhgt_2fct <- ggplot(rcs |> drop_na(), aes(x = MaxHeight, y = TopSpeed)) +
+                      geom_point() +
+                      labs(title = "Top Speed by Max Height",
+                               x = "Max Height (Feet)",
+                               y = "Top Speed (MPH)") +
+                      facet_wrap(vars(Type, Scale)) +
+                      theme_minimal()
+
+topspd_maxhgt_2fct
+```
+Faceting isn't a great choice for viewing these plots, but if we had more data it could be useful.
